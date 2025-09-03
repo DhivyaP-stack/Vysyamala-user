@@ -184,15 +184,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
       setNativeState((prevState) => prevState.filter((item) => item !== value));
     }
   };
-  const handleCheckDhosam = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = event.target;
-
-    if (id === "chevvai") {
-      setChevvai_dhosam(checked ? "yes" : "no");
-    } else if (id === "rehu") {
-      setRehuDhosam(checked ? "yes" : "no")
-    }
-  };
+  
   const handleIncomeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedIncomes(event.target.value);
   };
