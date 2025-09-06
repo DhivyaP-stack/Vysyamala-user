@@ -63,6 +63,14 @@ import { AboutUs } from "./Pages/AboutUs";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { OtherSettings } from "./Components/DashBoard/OtherSettings";
+import { ViewedProfiles } from "./Components/DashBoard/ViewedProfiles";
+import { InterestSent } from "./Components/DashBoard/InterestSent";
+import { MyVisitors } from "./Components/DashBoard/MyVisitors";
+import Gallery from "./Components/DashBoard/Gallary";
+import PhotoRequest from "./Components/DashBoard/PhotoRequest";
+import { PersonalNotes } from "./Components/DashBoard/PersonalNotes";
+import { VysAssist } from "./Components/DashBoard/VysAssist";
+import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualInterest";
 
 // Define prop types for AppContent
 interface AppContentProps {
@@ -167,6 +175,33 @@ function AppContent({ token }: AppContentProps) {
             <Route path="/Search" element={<Search />} />
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            }} />} />
+            <Route path="/Dashboard/viewedprofiles" element={<ViewedProfiles dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            }} />} />
+            <Route path="/Dashboard/interestsent" element={<InterestSent dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            }} />} />
+            <Route path="/Dashboard/myvisitors" element={<MyVisitors dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            }} />} />
+            <Route path="/Dashboard/PhotoRequest" element={<PhotoRequest dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
+            <Route path="/Dashboard/PersonalNotes" element={<PersonalNotes dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
+            <Route path="/Dashboard/VysAssit" element={<VysAssist dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
+            <Route path="/Dashboard/OtherSettings" element={<OtherSettings dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
+            <Route path="/Dashboard/Gallery" element={<Gallery dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
+             <Route path="/Dashboard/MutualInterest" element={<DashBoardMutualInterest dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
             } } />} />
             <Route path="/Wishlist" element={<Wishlist />} />
