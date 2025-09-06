@@ -753,14 +753,20 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'viewedProfiles':
         navigate(`/Dashboard/viewedprofiles?page=${pageNumber}`);
         break;
-      case 'matchingProfiles':
-        navigate('/Dashboard/matchingprofiles');
+      case 'LoginHome':
+        navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`);
         break;
-      case 'MutualInterests':
+      case 'SearchResults':
+        navigate(`/Search/SearchResults?page=${pageNumber}`);
+        break;
+         case 'Searchresults':
+        navigate(`/Search/Searchresults?page=${pageNumber}`);
+        break;
+      case 'MutualInterest':
         navigate(`/Dashboard/MutualInterest?page=${pageNumber}`);
         break;
-      case 'wishlist':
-        navigate(`/Dashboard/wishlist?page=${pageNumber}`);
+      case 'Wishlist':
+        navigate(`/Dashboard/Wishlist?page=${pageNumber}`);
         break;
       case 'interestSent':
         navigate(`/Dashboard/interestsent?page=${pageNumber}`);
@@ -768,12 +774,15 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'myVisitors':
         navigate(`/Dashboard/myvisitors?page=${pageNumber}`);
         break;
-      case 'Search':
-        navigate('/Search');
+      case 'ViewAllFeaturedProfiles':
+        navigate(`/Dashboard/ViewAllFeaturedProfiles?page=${pageNumber}`);
         break;
-      case 'loginHome':
-        navigate('/LoginHome');
-        break;
+      // case 'Search':
+      //   navigate('/Search');
+      //   break;
+      // case 'LoginHome':
+      //   navigate(`/LoginHome?page=${pageNumber}`);
+      //   break;
       case 'suggestedProfiles':
         navigate('/suggestedprofiles');
         break;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { SetStateAction, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -71,6 +71,9 @@ import PhotoRequest from "./Components/DashBoard/PhotoRequest";
 import { PersonalNotes } from "./Components/DashBoard/PersonalNotes";
 import { VysAssist } from "./Components/DashBoard/VysAssist";
 import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualInterest";
+import { DashBoardWishlist } from "./Components/DashBoard/DashBoardWishlist";
+import { MatchingProfiles } from "./Components/LoginHome/MatchingProfiles";
+import { SearchResults } from "./Components/LoginSearch/SearchResults";
 
 // Define prop types for AppContent
 interface AppContentProps {
@@ -173,6 +176,7 @@ function AppContent({ token }: AppContentProps) {
           <Route element={<LoginLayout />}>
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
+           
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
@@ -188,22 +192,26 @@ function AppContent({ token }: AppContentProps) {
             }} />} />
             <Route path="/Dashboard/PhotoRequest" element={<PhotoRequest dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
+            }} />} />
             <Route path="/Dashboard/PersonalNotes" element={<PersonalNotes dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
+            }} />} />
             <Route path="/Dashboard/VysAssit" element={<VysAssist dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
+            }} />} />
             <Route path="/Dashboard/OtherSettings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
+            }} />} />
             <Route path="/Dashboard/Gallery" element={<Gallery dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
-             <Route path="/Dashboard/MutualInterest" element={<DashBoardMutualInterest dashBoardAgain={function (): void {
+            }} />} />
+            <Route path="/Dashboard/MutualInterest" element={<DashBoardMutualInterest dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } />} />
+            }} />} />
+            <Route path="/Dashboard/Wishlist" element={<DashBoardWishlist dashBoardAgain={function (): void {
+              throw new Error("Function not implemented.");
+            }} />} />
+            <Route path="/LoginHome/MatchingProfiles" element={<MatchingProfiles />} />
             <Route path="/Wishlist" element={<Wishlist />} />
             <Route path="/Messages" element={<Messages />} />
             <Route path="/Notifications" element={<Notifications />} />

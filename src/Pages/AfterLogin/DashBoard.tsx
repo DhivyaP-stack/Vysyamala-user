@@ -85,68 +85,8 @@ export const DashBoard = () => {
       setShowOtherSettings(true)
     }
   }, [interestParam])
-
-  const keyParam = queryParams.get("key");
-
-  useEffect(() => {
-    // Reset all states first
-    setShowDashBoardMatchingProfiles(false);
-    setShowDashBoardMutualInterest(false);
-    setShowDashBoardWishlist(false);
-    setShowProfileDetails(false);
-    setShowInterestSent(false);
-    setShowViewedProfiles(false);
-    setShowMyVisitors(false);
-    setShowPersonalNotes(false);
-    setShowVysAssist(false);
-    setShowOtherSettings(false);
-    setShowPhotoRequest(false);
-    setShowGallery(false);
-
-    // Set the appropriate state based on the key parameter
-    switch (keyParam) {
-      case 'matchingProfiles':
-        setShowDashBoardMatchingProfiles(true);
-        break;
-      case 'mutualInterest':
-        setShowDashBoardMutualInterest(true);
-        break;
-      case 'wishlist':
-        setShowDashBoardWishlist(true);
-        break;
-      case 'profileDetails':
-        setShowProfileDetails(true);
-        break;
-      case 'interestSent':
-        setShowInterestSent(true);
-        break;
-      case 'viewedProfiles':
-        setShowViewedProfiles(true);
-        break;
-      case 'myVisitors':
-        setShowMyVisitors(true);
-        break;
-      case 'personalNotes':
-        setShowPersonalNotes(true);
-        break;
-      case 'vysAssist':
-        setShowVysAssist(true);
-        break;
-      case 'otherSettings':
-        setShowOtherSettings(true);
-        break;
-      case 'photoRequest':
-        setShowPhotoRequest(true);
-        break;
-      case 'gallery':
-        setShowGallery(true);
-        break;
-      default:
-        // Show default dashboard grid if no valid key or key is null
-        break;
-    }
-  }, [keyParam]);
-
+  
+  
   return (
     <div>
       {showProfileDetails ? (

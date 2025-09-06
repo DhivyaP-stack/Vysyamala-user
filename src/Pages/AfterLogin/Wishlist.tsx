@@ -67,12 +67,6 @@ export const Wishlist = () => {
   }, []);
 
 
-
-
-
-
-
-
   return (
     <div className="bg-grayBg">
       <div className="container mx-auto py-10">

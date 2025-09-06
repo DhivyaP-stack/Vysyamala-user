@@ -119,22 +119,27 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
     navigate('/Dashboard/Gallery');
   };
 
-
   const handleMyvisitorsProfilesClick = () => {
     navigate('/Dashboard/Myvisitors');
   };
 
-    const handlePhotoRequestClick = () => {
+  const handlePhotoRequestClick = () => {
     navigate('/Dashboard/PhotoRequest');
   };
-    const handlePersonalNotesClick = () => {
+  const handlePersonalNotesClick = () => {
     navigate('/Dashboard/PersonalNotes');
   };
-    const handleVysAssistClick = () => {
+  const handleVysAssistClick = () => {
     navigate('/Dashboard/VysAssit');
   };
-    const handleOtherSettingsClick = () => {
+  const handleOtherSettingsClick = () => {
     navigate('/Dashboard/OtherSettings');
+  };
+  const handleWishlistClick = () => {
+    navigate('/Dashboard/Wishlist');
+  };
+  const handleMatchingProfilesClick = () => {
+    navigate('/LoginHome/MatchingProfiles');
   };
 
 
@@ -151,7 +156,7 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
             <div className="grid grid-rows-2 grid-cols-2 gap-5 items-center max-sm:grid-cols-1">
               {/* {/ Matching Profiles /} */}
               <div
-                onClick={onDashBoardMatchingProfiles}
+                onClick={handleMatchingProfilesClick}
                 className="relative row-span-2 w-full h-full bg-vysyamalaPink shadow-matchingProfileShadow rounded-xl p-5 cursor-pointer z-[1]"
               >
                 <div className="absolute top-0 bottom-0 right-0 z-[-1]">
@@ -203,7 +208,8 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
 
               {/* {/ Wishlist /} */}
               <div
-                onClick={onDashBoardWishlist}
+                //onClick={onDashBoardWishlist}
+                onClick={handleWishlistClick}
                 className="relative w-full bg-vysyamalaYellow rounded-xl shadow-WishlistShadow p-5 cursor-pointer z-[1]"
               >
                 <div className="absolute top-0 bottom-0 right-0 z-[-1]">
@@ -372,7 +378,7 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
               />
 
               <IndicatorCard
-               // onClick={onPhotoRequest}
+                // onClick={onPhotoRequest}
                 onClick={handlePhotoRequestClick}
                 cardTitle="Photo Request"
                 cardCount={String(dashboardDetails?.photo_int_count || 0)}
@@ -386,7 +392,7 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
               <div className="flex justify-start items-center gap-6 max-sm:flex-col">
                 <OptionCard
                   //onClick={onPersonalNotes}
-                   onClick={handlePersonalNotesClick}
+                  onClick={handlePersonalNotesClick}
                   cardTitle="Personal Notes"
                   cardIcon={PersonalNote}
                 />
@@ -394,12 +400,12 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
                   cardTitle="Vys Assist"
                   cardIcon={VysAssist}
                   // onClick={onVysAssist}
-                   onClick={handleVysAssistClick}
+                  onClick={handleVysAssistClick}
                 />
 
                 <OptionCard
                   // onClick={onOtherSettings}
-                   onClick={handleOtherSettingsClick}
+                  onClick={handleOtherSettingsClick}
                   cardTitle="Other Settings"
                   cardIcon={OtherSettings}
                 />
