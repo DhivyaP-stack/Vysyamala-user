@@ -1,15 +1,24 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AdvancedSearch } from "../../Components/LoginSearch/AdvancedSearch";
 import { SearchResults } from "../../Components/LoginSearch/SearchResults";
 import { Get_advance_search } from "../../commonapicall";
 import { ProfileContext } from "../../ProfileContext";
 import axios from "axios";
-// import { Console } from "console";
-// import React from "react";
 
 const Search = () => {
-  // Toggle the showResults state when the user finds a match
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showResults, setShowResults] = useState(false);
+
+  // Initialize state based on URL
+  useEffect(() => {
+    if (location.pathname.includes("/SearchResults")) {
+      setShowResults(true);
+    } else {
+      setShowResults(false);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     // Clear session storage when navigating away from the page
@@ -38,7 +47,6 @@ const Search = () => {
     setTotalCount,
     totalCount,
     setSearchProfileData,
-    // setAdvanceSelectedProfessions,
     AdvanceselectedProfessions,
     selectedAdvanceEducation,
     selectedIncomes,
@@ -58,15 +66,38 @@ const Search = () => {
   useEffect(() => {
     if (advanceSearchData && advanceSearchData.length > 0) {
       setShowResults(true);
+      navigate("/Search/SearchResults"); // Update URL when results are shown
     }
-  }, [advanceSearchData]);
+  }, [advanceSearchData, navigate]);
+
   const [calculatedPerPage, setCalculatedPerPage] = useState<number>(0);
-  const [pageNo, setPageNo] = useState<number>(1);
+  //const [pageNo, setPageNo] = useState<number>(1);
   const [, setNoRecordsFound] = useState(false);
   const [, setResponse] = useState<number>(0);
   const [error, setError] = useState(false);
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
   const [responseMsg, setResponseMsg] = useState<string>("");
+
+
+
+  // Get page number from URL query parameter or default to 1
+  const getInitialPageNumber = () => {
+    const searchParams = new URLSearchParams(location.search);
+    const pageFromUrl = searchParams.get('page');
+    return pageFromUrl ? parseInt(pageFromUrl) : 1;
+  };
+
+  const [pageNo, setPageNo] = useState<number>(getInitialPageNumber());
+
+  useEffect(() => {
+    // Update URL when page changes
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('page', pageNo.toString());
+
+    // Replace current URL without causing navigation
+    navigate(`?${searchParams.toString()}`, { replace: true });
+  }, [pageNo, location.search, navigate]);
+
   const handle_Get_advance_search = async () => {
     try {
       const response = await axios.post(Get_advance_search, {
@@ -102,6 +133,7 @@ const Search = () => {
         setTotalCount(response.data.total_count);
         setCalculatedPerPage(response.data.calculated_per_page);
         setResponse(response.status);
+        navigate("/Search/SearchResults"); // Navigate to results page
       } else {
         setNoRecordsFound(true);
       }
@@ -112,25 +144,21 @@ const Search = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   if (pageNo) {
-  //     handle_Get_advance_search();
-  //   }
-  // }, [pageNo]);
 
   useEffect(() => {
-    // Only call the API if we are on the results page (for pagination)
-    if (showResults) {
+    if (showResults && pageNo > 1) {
       handle_Get_advance_search();
     }
   }, [pageNo]);
 
   useEffect(() => {
-    // This runs only once when the component mounts
     if (context) {
-      context.setAdvanceSearchData([]); // Clear any old search data from context
+      context.setAdvanceSearchData([]);
     }
-    setShowResults(false); // Ensure the search form is always shown first
+    // Only reset to search form if we're not already on results page
+    if (!location.pathname.includes("/SearchResults")) {
+      setShowResults(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -139,15 +167,20 @@ const Search = () => {
     setError(false);
   }, []);
 
+  const handleSearchAgain = () => {
+    setShowResults(false);
+    navigate("/Search"); // Navigate back to search form
+  };
+
+  const handleFindMatch = () => {
+    setShowResults(true);
+    navigate("/Search/SearchResults"); // Navigate to results page
+  };
+
   const totalPages = Math.ceil(totalCount / calculatedPerPage);
+
   return (
     <div className="bg-grayBg">
-      {/* {searchProfileData ? (
-        <>
-          <AdvanceSearchCard />
-        </>
-      ) : (
-        <> */}{" "}
       {showResults ? (
         <SearchResults
           responseMsg={responseMsg}
@@ -157,16 +190,16 @@ const Search = () => {
           setPageNo={setPageNo}
           totalPages={totalPages}
           calculatedPerPage={calculatedPerPage}
-          onSearchAgain={() => setShowResults(false)}
+          onSearchAgain={handleSearchAgain}
+          showResults={showResults}
+          handle_Get_advance_search={handle_Get_advance_search}
         />
       ) : (
         <AdvancedSearch
           handle_Get_advance_search={handle_Get_advance_search}
-          onFindMatch={() => setShowResults(true)}
+          onFindMatch={handleFindMatch}
         />
       )}
-      {/* </> */}
-      {/* )} */}
     </div>
   );
 };

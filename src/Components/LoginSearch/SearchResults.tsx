@@ -17,6 +17,7 @@ import Pagination from "../Pagination";
 //import axios from "axios";
 import apiClient from "../../API";
 import { ProfileNotFound } from "../LoginHome/MatchingProfiles/ProfileNotFound";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface SearchResultsProps {
   onSearchAgain: () => void; // Call back function to trigger search again when user clicks on search again button
@@ -27,6 +28,8 @@ interface SearchResultsProps {
   error: boolean;
   totalCount: number;
   responseMsg: string;
+  showResults: boolean; // Note: 'showResults' is a boolean state, not a function
+  handle_Get_advance_search: () => Promise<void>;
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({
@@ -37,6 +40,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   pageNo,
   error,
   //responseMsg,
+  showResults,
+  handle_Get_advance_search,
 }) => {
   // View state changed
   const [currentView, setCurrentView] = useState("gridlist");
@@ -77,16 +82,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
     }
   }, [advanceSearchData]);
 
-  // const noOfPages = Math.ceil(totalCount / perPage);
-
-  // const handlePrevious = () => {
-  //   setPageNumber((prev) => Math.max(prev - 1, 1));
-  // };
-
-  // const handleNext = () => {
-  //   setPageNumber((prev) => Math.min(prev + 1, noOfPages));
-  // };
-
   const searchAgain = () => {
     setFromAge(0);
     setToAge(0);
@@ -107,6 +102,30 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   };
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
   const [searchProfile, setSearchProfile] = useState<string>("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  // Get the page number from the URL or location state
+  const getInitialPageNumber = () => {
+    const searchParams = new URLSearchParams(location.search);
+    const pageFromUrl = searchParams.get('page');
+    const pageFromState = location.state?.pageNumber;
+    return pageFromUrl ? parseInt(pageFromUrl) : (pageFromState ? pageFromState : 1);
+  };
+
+
+  useEffect(() => {
+    // Update URL when page changes
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('page', pageNo.toString());
+    navigate(`?${searchParams.toString()}`, { replace: true });
+
+    // Only call the API if results are already shown and the page number changes.
+    // This prevents unnecessary API calls when the component first mounts.
+    if (showResults) {
+      handle_Get_advance_search();
+    }
+
+  }, [pageNo, navigate, showResults]);
 
   const HandlesearchProfile = async () => {
     try {
@@ -131,6 +150,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   };
   console.log(advanceSearchData, "advanceSearchData");
   console.log("totalCount", totalCount)
+
 
   return (
     <div>
