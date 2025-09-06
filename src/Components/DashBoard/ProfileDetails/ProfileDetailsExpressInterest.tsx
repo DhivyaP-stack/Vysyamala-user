@@ -756,12 +756,7 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'LoginHome':
         navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`);
         break;
-      case 'SearchResults':
-        navigate(`/Search/SearchResults?page=${pageNumber}`, { state: { pageNumber } });
-        break;
-         case 'Searchresults':
-        navigate(`/Search/Searchresults?page=${pageNumber}`);
-        break;
+     
       case 'MutualInterest':
         navigate(`/Dashboard/MutualInterest?page=${pageNumber}`);
         break;

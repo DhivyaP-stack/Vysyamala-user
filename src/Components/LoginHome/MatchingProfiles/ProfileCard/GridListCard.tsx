@@ -120,6 +120,7 @@ export const GridListCard: React.FC<GridListCardProps> = ({ profile }) => {
       const searchParams = new URLSearchParams(window.location.search);
       const pageFromUrl = searchParams.get('page');
       const currentPage = pageFromUrl ? parseInt(pageFromUrl) : 1;
+      
       // If successful, create profile visit and navigate
       navigate(`/ProfileDetails?id=${profile.profile_id}&rasi=1`, {
         state: {

@@ -176,7 +176,6 @@ function AppContent({ token }: AppContentProps) {
           <Route element={<LoginLayout />}>
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
-            <Route path="/Search/SearchResults"element={<Search />} />
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
