@@ -9,7 +9,7 @@ interface DashBoardWishlistProps {
   dashBoardAgain: () => void;
 }
 
-export const DashBoardWishlist: React.FC<DashBoardWishlistProps> = ({ dashBoardAgain }) => {
+export const DashBoardWishlist: React.FC<DashBoardWishlistProps> = ({ }) => {
   useEffect(() => {
     sessionStorage.removeItem("searchvalue");
   }, []);

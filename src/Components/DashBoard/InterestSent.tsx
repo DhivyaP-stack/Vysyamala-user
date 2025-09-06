@@ -12,7 +12,7 @@ interface InterestSentProps {
 }
 
 export const InterestSent: React.FC<InterestSentProps> = ({
-  dashBoardAgain,
+
 }) => {
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
 

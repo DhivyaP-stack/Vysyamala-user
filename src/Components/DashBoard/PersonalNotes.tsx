@@ -11,7 +11,7 @@ interface PersonalNotesProps {
     dashBoardAgain: () => void;
 }
 
-export const PersonalNotes: React.FC<PersonalNotesProps> = ({ dashBoardAgain }) => {
+export const PersonalNotes: React.FC<PersonalNotesProps> = ({  }) => {
     const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
 
     const [totalRecords, setTotalRecords] = useState<number>(0);

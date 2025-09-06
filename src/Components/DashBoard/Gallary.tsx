@@ -18,7 +18,7 @@ export type GalleryItem = {
   img_url: string;
 };
 
-export const Gallery: React.FC<GalleryProps> = ({ dashBoardAgain }) => {
+export const Gallery: React.FC<GalleryProps> = ({ }) => {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

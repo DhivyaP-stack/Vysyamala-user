@@ -11,7 +11,7 @@ interface VysassistNotesPopupProps {
     dashBoardAgain: () => void;
 }
 
-export const VysAssist: React.FC<VysassistNotesPopupProps> = ({ dashBoardAgain }) => {
+export const VysAssist: React.FC<VysassistNotesPopupProps> = ({  }) => {
     const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
 
     const [totalRecords, setTotalRecords] = useState<number>(0);

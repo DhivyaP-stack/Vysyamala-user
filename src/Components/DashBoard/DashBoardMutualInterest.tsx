@@ -12,7 +12,7 @@ interface DashBoardMutualInterestProps {
 
 }
 
-export const DashBoardMutualInterest: React.FC<DashBoardMutualInterestProps> = ({ dashBoardAgain }) => {
+export const DashBoardMutualInterest: React.FC<DashBoardMutualInterestProps> = ({ }) => {
   const [count, setCount] = useState<number>(0)
   const [dataPerPage, setDataPerPage] = useState(0);
   const [ViewCount, setViewCount] = useState<number>(0)

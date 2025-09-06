@@ -24,38 +24,25 @@ import PhotoReq from "../../assets/icons/PhotoReq.png";
 import { Puff } from 'react-loader-spinner';
 import { useNavigate } from "react-router-dom";
 
-interface DashBoardGridProps {
-  onDashBoardMatchingProfiles: () => void;
-  onDashBoardMutualInterest: () => void;
-  onDashBoardWishlist: () => void;
-  // Profile Card
-  onProfileDetails: () => void;
-  // Indicator Cards
-  onInterestSent: () => void;
-  onViewedProfiles: () => void;
-  onMyVisitors: () => void;
-  onPhotoRequest: () => void;
-  onGallery: () => void;
-  // Optional Cards
-  onPersonalNotes: () => void;
-  onVysAssist: () => void;
-  onOtherSettings: () => void;
-}
+// interface DashBoardGridProps {
+//   onDashBoardMatchingProfiles: () => void;
+//   onDashBoardMutualInterest: () => void;
+//   onDashBoardWishlist: () => void;
+//   // Profile Card
+//   onProfileDetails: () => void;
+//   // Indicator Cards
+//   onInterestSent: () => void;
+//   onViewedProfiles: () => void;
+//   onMyVisitors: () => void;
+//   onPhotoRequest: () => void;
+//   onGallery: () => void;
+//   // Optional Cards
+//   onPersonalNotes: () => void;
+//   onVysAssist: () => void;
+//   onOtherSettings: () => void;
+// }
 
-export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
-  onDashBoardMatchingProfiles,
-  onDashBoardMutualInterest,
-  onDashBoardWishlist,
-  //onProfileDetails,
-  onInterestSent,
-  onViewedProfiles,
-  onMyVisitors,
-  onPhotoRequest,
-  onPersonalNotes,
-  onGallery,
-  onVysAssist,
-  onOtherSettings,
-}) => {
+export const DashBoardGrid: React.FC = () => {
   // Circular Progress bar value
 
   // Use context safely

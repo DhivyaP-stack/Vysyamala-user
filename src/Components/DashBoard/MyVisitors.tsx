@@ -12,7 +12,7 @@ interface MyVisitorsProps {
   dashBoardAgain: () => void;
 }
 
-export const MyVisitors: React.FC<MyVisitorsProps> = ({ dashBoardAgain }) => {
+export const MyVisitors: React.FC<MyVisitorsProps> = ({  }) => {
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
 
   // State for loading and error handling, similar to ViewedProfiles

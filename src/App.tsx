@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect } from "react";
+import {  useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -71,9 +71,9 @@ import PhotoRequest from "./Components/DashBoard/PhotoRequest";
 import { PersonalNotes } from "./Components/DashBoard/PersonalNotes";
 import { VysAssist } from "./Components/DashBoard/VysAssist";
 import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualInterest";
-import { DashBoardWishlist } from "./Components/DashBoard/DashBoardWishlist";
+//import { DashBoardWishlist } from "./Components/DashBoard/DashBoardWishlist";
 import { MatchingProfiles } from "./Components/LoginHome/MatchingProfiles";
-import { SearchResults } from "./Components/LoginSearch/SearchResults";
+//import { SearchResults } from "./Components/LoginSearch/SearchResults";
 
 // Define prop types for AppContent
 interface AppContentProps {

@@ -121,27 +121,28 @@ export const DashBoard = () => {
         <OtherSettings dashBoardAgain={() => setShowOtherSettings(false)} />
       ) : showGallery ? (
         <Gallary dashBoardAgain={() => setShowGallery(false)} />) : (
-        <DashBoardGrid
-          onDashBoardMutualInterest={() =>
-            setShowDashBoardMutualInterest(true)
-          }
-          onDashBoardMatchingProfiles={() =>
-            setShowDashBoardMatchingProfiles(true)
-          }
-          onDashBoardWishlist={() => setShowDashBoardWishlist(true)}
-          // Profile Card
-          onProfileDetails={() => setShowProfileDetails(true)}
-          // Indicator Cards
-          onViewedProfiles={() => setShowViewedProfiles(true)}
-          onInterestSent={() => setShowInterestSent(true)}
-          onMyVisitors={() => setShowMyVisitors(true)}
-          onPhotoRequest={() => setShowPhotoRequest(true)}
-          onGallery={() => setShowGallery(true)}
-          // Optional Cards
-          onPersonalNotes={() => setShowPersonalNotes(true)}
-          onVysAssist={() => setShowVysAssist(true)}
-          onOtherSettings={() => setShowOtherSettings(true)}
-        />
+        // <DashBoardGrid
+        //   onDashBoardMutualInterest={() =>
+        //     setShowDashBoardMutualInterest(true)
+        //   }
+        //   onDashBoardMatchingProfiles={() =>
+        //     setShowDashBoardMatchingProfiles(true)
+        //   }
+        //   onDashBoardWishlist={() => setShowDashBoardWishlist(true)}
+        //   // Profile Card
+        //   onProfileDetails={() => setShowProfileDetails(true)}
+        //   // Indicator Cards
+        //   onViewedProfiles={() => setShowViewedProfiles(true)}
+        //   onInterestSent={() => setShowInterestSent(true)}
+        //   onMyVisitors={() => setShowMyVisitors(true)}
+        //   onPhotoRequest={() => setShowPhotoRequest(true)}
+        //   onGallery={() => setShowGallery(true)}
+        //   // Optional Cards
+        //   onPersonalNotes={() => setShowPersonalNotes(true)}
+        //   onVysAssist={() => setShowVysAssist(true)}
+        //   onOtherSettings={() => setShowOtherSettings(true)}
+        // />
+        <DashBoardGrid />
       )}
     </div>
   );
