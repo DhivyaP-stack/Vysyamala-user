@@ -136,7 +136,7 @@ export const DashBoardGrid: React.FC<DashBoardGridProps> = ({
     navigate('/Dashboard/OtherSettings');
   };
   const handleWishlistClick = () => {
-    navigate('/Dashboard/Wishlist');
+    navigate('/Dashboard/Wishlisting');
   };
   const handleMatchingProfilesClick = () => {
     navigate('/LoginHome/MatchingProfiles');

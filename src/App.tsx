@@ -176,7 +176,6 @@ function AppContent({ token }: AppContentProps) {
           <Route element={<LoginLayout />}>
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
-           
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
@@ -208,9 +207,7 @@ function AppContent({ token }: AppContentProps) {
             <Route path="/Dashboard/MutualInterest" element={<DashBoardMutualInterest dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
             }} />} />
-            <Route path="/Dashboard/Wishlist" element={<DashBoardWishlist dashBoardAgain={function (): void {
-              throw new Error("Function not implemented.");
-            }} />} />
+            <Route path="/Dashboard/Wishlisting" element={<Wishlist />} />
             <Route path="/LoginHome/MatchingProfiles" element={<MatchingProfiles />} />
             <Route path="/Wishlist" element={<Wishlist />} />
             <Route path="/Messages" element={<Messages />} />

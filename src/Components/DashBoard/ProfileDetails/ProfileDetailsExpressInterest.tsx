@@ -765,8 +765,8 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'MutualInterest':
         navigate(`/Dashboard/MutualInterest?page=${pageNumber}`);
         break;
-      case 'Wishlist':
-        navigate(`/Dashboard/Wishlist?page=${pageNumber}`);
+      case 'Wishlisting':
+        navigate(`/Dashboard/Wishlisting?page=${pageNumber}`);
         break;
       case 'interestSent':
         navigate(`/Dashboard/interestsent?page=${pageNumber}`);
