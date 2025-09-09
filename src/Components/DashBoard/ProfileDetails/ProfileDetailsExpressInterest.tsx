@@ -742,9 +742,33 @@ export const ProfileDetailsExpressInterest: React.FC<
 
   // Get the navigation state with default values
   const navigationState = location.state || {};
-  const { from = '', pageNumber = 1 } = navigationState;
+  //const { from = '', pageNumber = 1 } = navigationState;
+  const { from = '', pageNumber = 1, searchState = {} } = navigationState;
 
   const handleBackClick = () => {
+
+    // Special case: MatchingProfiles → restore search state
+    if (from === 'MatchingProfiles' && searchState) {
+      Object.entries(searchState).forEach(([key, value]) => {
+        sessionStorage.setItem(key, value as string);
+      });
+
+      navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`, {
+        state: { from, pageNumber, searchState }
+      });
+      return;
+    }
+
+    if (from === 'LoginHome' && searchState) {
+      Object.entries(searchState).forEach(([key, value]) => {
+        sessionStorage.setItem(key, value as string);
+      });
+
+      navigate(`/LoginHome?page=${pageNumber}`, {
+        state: { from, pageNumber, searchState }
+      });
+      return;
+    }
     // Handle navigation based on where we came from
     switch (from) {
       case 'dashboard':
@@ -753,9 +777,9 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'viewedProfiles':
         navigate(`/Dashboard/viewedprofiles?page=${pageNumber}`);
         break;
-      case 'LoginHome':
-        navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`);
-        break;
+      // case 'LoginHome':
+      //   navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`);
+      //   break;
 
       case 'MutualInterest':
         navigate(`/Dashboard/MutualInterest?page=${pageNumber}`);
@@ -778,9 +802,9 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'SearchProfiles':
         navigate('/Search/SearchProfiles');
         break;
-      case 'LoginHome':
-        navigate(`/LoginHome?page=${pageNumber}`);
-        break;
+      // case 'LoginHome':
+      //   navigate(`/LoginHome?page=${pageNumber}`);
+      //   break;
       case 'suggestedProfiles':
         navigate('/suggestedprofiles');
         break;
