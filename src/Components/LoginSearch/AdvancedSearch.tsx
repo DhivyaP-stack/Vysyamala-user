@@ -129,6 +129,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
 
     handle_Get_advance_search();
     onFindMatch();
+    // navigate('/Search/SearchProfiles');
   };
 
   const handlePeopleWithPhotoChange = (
@@ -184,7 +185,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
       setNativeState((prevState) => prevState.filter((item) => item !== value));
     }
   };
-  
+
   const handleIncomeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedIncomes(event.target.value);
   };
@@ -244,7 +245,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
       if (response.status === 200) {
         sessionStorage.setItem("searchProfile", searchProfile);
         console.log(response.data.data, "search profile");
-      setAdvanceSearchData(response.data.data);
+        setAdvanceSearchData(response.data.data);
         setTimeout(() => {
           onFindMatch();
         }, 1000);
@@ -349,10 +350,9 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
   }, []);
 
   const onSubmit = (data: ProfileIdForm) => {
-
     // Proceed with the search if no errors
     Search_By_profileId(data.profile_id);
-
+    navigate('/Search/SearchProfiles');
   };
 
 

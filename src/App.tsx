@@ -1,4 +1,4 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -73,6 +73,8 @@ import { VysAssist } from "./Components/DashBoard/VysAssist";
 import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualInterest";
 //import { DashBoardWishlist } from "./Components/DashBoard/DashBoardWishlist";
 import { MatchingProfiles } from "./Components/LoginHome/MatchingProfiles";
+import { AdvancedSearch } from "./Components/LoginSearch/AdvancedSearch";
+import { SearchResults } from "./Components/LoginSearch/SearchResults";
 //import { SearchResults } from "./Components/LoginSearch/SearchResults";
 
 // Define prop types for AppContent
@@ -176,6 +178,8 @@ function AppContent({ token }: AppContentProps) {
           <Route element={<LoginLayout />}>
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
+            {/* <Route path="/Search" element={<AdvancedSearch />} /> */}
+            <Route path="/Search/SearchProfiles" element={<SearchResults />} />
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");
