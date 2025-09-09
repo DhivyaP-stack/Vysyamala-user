@@ -256,7 +256,9 @@ export const MatchingProfiles = () => {
   }, [paginationValue]);
 
   const handleNewSearch = async () => {
+    handleFindMatch(1);
     setPaginationValue(1); // This will trigger the useEffect and call handleFindMatch
+    setMatchingProfilePageNumber(1);
   };
 
   // useEffect(() => {
@@ -292,6 +294,7 @@ export const MatchingProfiles = () => {
       setSearchResult([]);
       setCount(0);
       setTotalCount(0);
+      setPaginationValue(MatchingProfilepageNumber);
     }
   };
   const searchvalue = sessionStorage.getItem("searchvalue") || " ";
@@ -608,7 +611,11 @@ export const MatchingProfiles = () => {
           <>
             <Pagination
               pageNumber={paginationValue}
-              setPageNumber={setPaginationValue}
+              //setPageNumber={setPaginationValue}
+              setPageNumber={(page) => {
+                setPaginationValue(page);
+                setMatchingProfilePageNumber(page); // ✅ keep synced
+              }}
               totalRecords={Number(totalCount)}
               dataPerPage={pegeDataCount}
               toptalPages={totalPageCount}
@@ -618,7 +625,11 @@ export const MatchingProfiles = () => {
           <>
             <Pagination
               pageNumber={MatchingProfilepageNumber}
-              setPageNumber={setMatchingProfilePageNumber}
+              //setPageNumber={setMatchingProfilePageNumber}
+              setPageNumber={(page) => {
+                setPaginationValue(page);
+                setMatchingProfilePageNumber(page); // ✅ keep synced
+              }}
               totalRecords={MatchingProfiletotalCount}
               dataPerPage={MatchingProfileperPage}
               toptalPages={noOfPages}
