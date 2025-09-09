@@ -97,13 +97,10 @@ export const MatchingProfiles = () => {
   // View state changed
   const [currentView, setCurrentView] = useState("gridlist");
 
-  // Function to sort profiles by name and toggle order
-
   // Advanced Popup Show
   let showAdvancedSearchPopup;
   // const [showAdvancedSearchPopup, setShowAdvancedSearchPopup] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
-
   const [Get_Profes_Pref, setGet_Profes_Pref] = useState<ProfesPrefType[]>([]);
   const [profession, setProfession] = useState<string>("");
 

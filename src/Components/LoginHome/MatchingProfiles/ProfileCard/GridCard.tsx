@@ -103,6 +103,8 @@ export const GridCard: React.FC<GridCardProps> = ({ profile }) => {
         toast.error(checkResponse.data.message || "Limit reached to view profile");
         return;
       }
+
+      
       const searchParams = new URLSearchParams(window.location.search);
       const pageFromUrl = searchParams.get('page');
       const currentPage = pageFromUrl ? parseInt(pageFromUrl) : 1;

@@ -1,6 +1,6 @@
 // src/pages/FindMatch.tsx
 
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ProfileContext } from "../../ProfileContext";

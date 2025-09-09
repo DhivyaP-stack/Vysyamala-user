@@ -31,7 +31,7 @@ interface SearchResultsProps {
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({
-  onSearchAgain,
+  //onSearchAgain,
   calculatedPerPage,
   totalPages,
   setPageNo,
@@ -52,21 +52,21 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   const {
     totalCount,
     setTotalCount, // <--- ADD THIS
-    setFromAge,
-    setToAge,
-    setFromHeight,
-    setToHeight,
-    setWorkLocation,
-    setAdvanceSelectedProfessions,
-    Set_Maritial_Status,
-    setAdvanceSelectedEducation,
+    // setFromAge,
+    // setToAge,
+    // setFromHeight,
+    // setToHeight,
+    // setWorkLocation,
+    // setAdvanceSelectedProfessions,
+    // Set_Maritial_Status,
+    // setAdvanceSelectedEducation,
     setAdvanceSearchData,
-    setSelectedIncomes,
-    setChevvai_dhosam,
-    setRehuDhosam,
-    setAdvanceSelectedBirthStar,
-    setNativeState,
-    setPeopleOnlyWithPhoto,
+    // setSelectedIncomes,
+    // setChevvai_dhosam,
+    // setRehuDhosam,
+    // setAdvanceSelectedBirthStar,
+    // setNativeState,
+    // setPeopleOnlyWithPhoto,
     advanceSearchData,
   } = context;
 
@@ -88,24 +88,24 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   //   setPageNumber((prev) => Math.min(prev + 1, noOfPages));
   // };
 
-  const searchAgain = () => {
-    setFromAge(0);
-    setToAge(0);
-    setFromHeight(0);
-    setToHeight(0);
-    setWorkLocation("");
-    setAdvanceSelectedProfessions([]);
-    Set_Maritial_Status([]);
-    setAdvanceSelectedEducation("");
-    setSelectedIncomes("");
-    setChevvai_dhosam("no");
-    setRehuDhosam("no");
-    setAdvanceSelectedBirthStar("");
-    setNativeState([]);
-    setPeopleOnlyWithPhoto(0);
-    setAdvanceSearchData([]);
-    onSearchAgain();
-  };
+  // const searchAgain = () => {
+  //   setFromAge(0);
+  //   setToAge(0);
+  //   setFromHeight(0);
+  //   setToHeight(0);
+  //   setWorkLocation("");
+  //   setAdvanceSelectedProfessions([]);
+  //   Set_Maritial_Status([]);
+  //   setAdvanceSelectedEducation("");
+  //   setSelectedIncomes("");
+  //   setChevvai_dhosam("no");
+  //   setRehuDhosam("no");
+  //   setAdvanceSelectedBirthStar("");
+  //   setNativeState([]);
+  //   setPeopleOnlyWithPhoto(0);
+  //   setAdvanceSearchData([]);
+  //   onSearchAgain();
+  // };
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
   const [searchProfile, setSearchProfile] = useState<string>("");
 
@@ -132,7 +132,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   };
   console.log(advanceSearchData, "advanceSearchData");
   console.log("totalCount", totalCount)
-  
+
   return (
     <div>
       <div className="container mx-auto py-10">

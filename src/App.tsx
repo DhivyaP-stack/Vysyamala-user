@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -73,9 +73,7 @@ import { VysAssist } from "./Components/DashBoard/VysAssist";
 import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualInterest";
 //import { DashBoardWishlist } from "./Components/DashBoard/DashBoardWishlist";
 import { MatchingProfiles } from "./Components/LoginHome/MatchingProfiles";
-import { AdvancedSearch } from "./Components/LoginSearch/AdvancedSearch";
 import { SearchResults } from "./Components/LoginSearch/SearchResults";
-import FindMatchResults from "./Components/LoginSearch/FindMatchResults";
 import FindMatch from "./Components/LoginSearch/FindMatchResults";
 //import { SearchResults } from "./Components/LoginSearch/SearchResults";
 
@@ -185,7 +183,7 @@ function AppContent({ token }: AppContentProps) {
             {/* <Route path="/Search/AdvanceSearch" element={<Search />} /> */}
             <Route path="/Search/SearchProfiles" element={<SearchResults onSearchAgain={function (): void {
               throw new Error("Function not implemented.");
-            } } calculatedPerPage={0} totalPages={0} setPageNo={function (value: SetStateAction<number>): void {
+            } } calculatedPerPage={0} totalPages={0} setPageNo={function (): void {
               throw new Error("Function not implemented.");
             } } pageNo={0} error={false} totalCount={0} responseMsg={""} />} />
             <Route path="/Dashboard" element={<DashBoard />} />

@@ -62,7 +62,7 @@ interface AdvancedSearchProps {
 }
 
 export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
-  handle_Get_advance_search,
+  //handle_Get_advance_search,
   onFindMatch,
 }) => {
   const {
