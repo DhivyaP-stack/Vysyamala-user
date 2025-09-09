@@ -132,6 +132,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   };
   console.log(advanceSearchData, "advanceSearchData");
   console.log("totalCount", totalCount)
+  
   return (
     <div>
       <div className="container mx-auto py-10">

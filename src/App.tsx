@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { SetStateAction, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -75,6 +75,8 @@ import { DashBoardMutualInterest } from "./Components/DashBoard/DashBoardMutualI
 import { MatchingProfiles } from "./Components/LoginHome/MatchingProfiles";
 import { AdvancedSearch } from "./Components/LoginSearch/AdvancedSearch";
 import { SearchResults } from "./Components/LoginSearch/SearchResults";
+import FindMatchResults from "./Components/LoginSearch/FindMatchResults";
+import FindMatch from "./Components/LoginSearch/FindMatchResults";
 //import { SearchResults } from "./Components/LoginSearch/SearchResults";
 
 // Define prop types for AppContent
@@ -178,9 +180,14 @@ function AppContent({ token }: AppContentProps) {
           <Route element={<LoginLayout />}>
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
+            <Route path="/Search/FindMatch" element={<FindMatch />} />
             {/* <Route path="/Search" element={<AdvancedSearch />} /> */}
             {/* <Route path="/Search/AdvanceSearch" element={<Search />} /> */}
-            <Route path="/Search/SearchProfiles" element={<SearchResults />} />
+            <Route path="/Search/SearchProfiles" element={<SearchResults onSearchAgain={function (): void {
+              throw new Error("Function not implemented.");
+            } } calculatedPerPage={0} totalPages={0} setPageNo={function (value: SetStateAction<number>): void {
+              throw new Error("Function not implemented.");
+            } } pageNo={0} error={false} totalCount={0} responseMsg={""} />} />
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {
               throw new Error("Function not implemented.");

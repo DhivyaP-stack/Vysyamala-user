@@ -125,11 +125,16 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
     setAdvanceSelectedEducation(event.target.value);
   };
 
-  const handleSearch = () => {
+//   const handleSearch = () => {
 
-    handle_Get_advance_search();
-    onFindMatch();
-    // navigate('/Search/SearchProfiles');
+//     handle_Get_advance_search();
+//     onFindMatch();
+//     // navigate('/Search/SearchProfiles');
+// };
+const handleSearch = () => {
+    // Just navigate to the new results route.
+    // The context already holds all the form values.
+    navigate('/Search/FindMatch');
   };
 
   const handlePeopleWithPhotoChange = (
@@ -1008,7 +1013,8 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
                 Cancel
               </button>
               <button
-                onClick={() => handleSearch()}
+                // onClick={() => handleSearch()}
+                 onClick={handleSearch} 
                 // disabled={disableFindMatch}
                 type="submit"
                 className="flex items-center text-sm py-[10px] px-6 bg-gradient text-white rounded-[6px] mt-2"
