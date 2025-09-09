@@ -244,7 +244,7 @@ export const AdvancedSearch: React.FC<AdvancedSearchProps> = ({
       if (response.status === 200) {
         sessionStorage.setItem("searchProfile", searchProfile);
         console.log(response.data.data, "search profile");
-        setAdvanceSearchData(response.data.data);
+      setAdvanceSearchData(response.data.data);
         setTimeout(() => {
           onFindMatch();
         }, 1000);

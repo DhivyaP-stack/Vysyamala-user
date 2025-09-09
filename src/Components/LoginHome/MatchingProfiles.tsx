@@ -193,21 +193,15 @@ export const MatchingProfiles = () => {
   };
 
   const [paginationValue, setPaginationValue] = useState<number>(getInitialPageNumber());
+  console.log("paginationValue matching profile", paginationValue)
+  console.log("MatchingProfilepageNumber", MatchingProfilepageNumber)
 
-  useEffect(() => {
-    // Update URL when page changes
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set('page', paginationValue.toString());
-
-    // Replace current URL without causing navigation
-    navigate(`?${searchParams.toString()}`, { replace: true });
-  }, [paginationValue, location.search, navigate]);
 
   useEffect(() => {
     handleFindMatch()
   }, [sortOrder]);
 
-  const handleFindMatch = async () => {
+  const handleFindMatch = async (page: number = paginationValue) => {
     setLoading(true); // Show the spinner while the search is being processed
 
     try {
@@ -216,7 +210,8 @@ export const MatchingProfiles = () => {
         profession,
         selectAge,
         selectedLocation,
-        paginationValue,
+        // paginationValue,
+        page,
         sortOrder
       );
       ////console.log("count", result.total_count);
@@ -249,11 +244,39 @@ export const MatchingProfiles = () => {
     }
   }, [searchResult, shouldScroll]);
 
+  // useEffect(() => {
+  //   if (paginationValue > 1) {
+  //     handleFindMatch();
+  //   }
+  // }, [paginationValue]);
   useEffect(() => {
-    if (paginationValue > 1) {
-      handleFindMatch();
+    if (paginationValue >= 1) {
+      handleFindMatch(paginationValue);
     }
   }, [paginationValue]);
+
+  const handleNewSearch = async () => {
+    setPaginationValue(1); // This will trigger the useEffect and call handleFindMatch
+  };
+
+  // useEffect(() => {
+  //   // Update URL when page changes
+  //   const searchParams = new URLSearchParams(location.search);
+  //   searchParams.set('page', paginationValue.toString());
+
+  //   // Replace current URL without causing navigation
+  //   navigate(`?${searchParams.toString()}`, { replace: true });
+  // }, [paginationValue, location.search, navigate]);
+  useEffect(() => {
+    // Update the URL when the paginationValue state changes.
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('page', paginationValue.toString());
+
+    // Use navigate to update the URL without triggering a full page reload.
+    // 'replace: true' prevents adding the new URL to the browser's history,
+    // so the back button still works as expected.
+    navigate(`?${searchParams.toString()}`, { replace: true });
+  }, [paginationValue, location.search, navigate]);
   //console.log(searchResult);
   //console.log(matchingProfileSearchId, "matchingProfileSearchId");
 
@@ -265,6 +288,10 @@ export const MatchingProfiles = () => {
     if (value.trim() === "") {
       // Clear the session storage when the input field is empty
       sessionStorage.removeItem("searchvalue");
+      setPaginationValue(1);
+      setSearchResult([]);
+      setCount(0);
+      setTotalCount(0);
     }
   };
   const searchvalue = sessionStorage.getItem("searchvalue") || " ";
@@ -347,9 +374,6 @@ export const MatchingProfiles = () => {
                 ? `(${totalCountSearch || 0})`
                 : `(${MatchingProfiletotalCount || 0})`}
             </span>
-
-
-
           </h4>
         </div>
 
@@ -464,7 +488,8 @@ export const MatchingProfiles = () => {
               <button
                 // disabled={!searchProfileId}
                 className="w-full  bg-gradient text-white text-sm   rounded-r-[6px] font-semibold px-[26px] py-[14px]   max-xl:px-4 max-sm:rounded-md"
-                onClick={handleFindMatch}
+                // onClick={handleFindMatch}
+                onClick={handleNewSearch}
               >
                 Find Match
               </button>
