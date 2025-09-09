@@ -119,7 +119,7 @@ export const ListCard: React.FC<ListCardProps> = ({ profile }) => {
       // If successful, create profile visit and navigate
       navigate(`/ProfileDetails?id=${profile.profile_id}&rasi=1`, {
         state: {
-       from: ["LoginHome", "SearchResults","Searchresults"],
+          from: ["LoginHome", "SearchProfiles"],
           pageNumber: currentPage // Pass the current page number
         }
       });

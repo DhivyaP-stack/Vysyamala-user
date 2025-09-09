@@ -4,6 +4,7 @@ import { SearchResults } from "../../Components/LoginSearch/SearchResults";
 import { Get_advance_search } from "../../commonapicall";
 import { ProfileContext } from "../../ProfileContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { Console } from "console";
 // import React from "react";
 
@@ -61,12 +62,31 @@ const Search = () => {
     }
   }, [advanceSearchData]);
   const [calculatedPerPage, setCalculatedPerPage] = useState<number>(0);
-  const [pageNo, setPageNo] = useState<number>(1);
+  //const [pageNo, setPageNo] = useState<number>(1);
   const [, setNoRecordsFound] = useState(false);
   const [, setResponse] = useState<number>(0);
   const [error, setError] = useState(false);
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
   const [responseMsg, setResponseMsg] = useState<string>("");
+  const navigate = useNavigate();
+
+  const getInitialPageNumber = () => {
+    const searchParams = new URLSearchParams(location.search);
+    const pageFromUrl = searchParams.get('page');
+    return pageFromUrl ? parseInt(pageFromUrl) : 1;
+  };
+
+  const [pageNo, setPageNo] = useState<number>(getInitialPageNumber());
+
+  useEffect(() => {
+    // Update URL when page changes
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('page', pageNo.toString());
+
+    // Replace current URL without causing navigation
+    navigate(`?${searchParams.toString()}`, { replace: true });
+  }, [pageNo, location.search, navigate]);
+
   const handle_Get_advance_search = async () => {
     try {
       const response = await axios.post(Get_advance_search, {

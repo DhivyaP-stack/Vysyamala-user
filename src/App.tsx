@@ -179,6 +179,7 @@ function AppContent({ token }: AppContentProps) {
             <Route path="/LoginHome" element={<LoginHome />} />
             <Route path="/Search" element={<Search />} />
             {/* <Route path="/Search" element={<AdvancedSearch />} /> */}
+            {/* <Route path="/Search/AdvanceSearch" element={<Search />} /> */}
             <Route path="/Search/SearchProfiles" element={<SearchResults />} />
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Dashboard/Settings" element={<OtherSettings dashBoardAgain={function (): void {

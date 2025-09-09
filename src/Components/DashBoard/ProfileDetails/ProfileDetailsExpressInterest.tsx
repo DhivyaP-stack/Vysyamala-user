@@ -756,7 +756,7 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'LoginHome':
         navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`);
         break;
-     
+
       case 'MutualInterest':
         navigate(`/Dashboard/MutualInterest?page=${pageNumber}`);
         break;
@@ -772,12 +772,15 @@ export const ProfileDetailsExpressInterest: React.FC<
       case 'ViewAllFeaturedProfiles':
         navigate(`/Dashboard/ViewAllFeaturedProfiles?page=${pageNumber}`);
         break;
-      // case 'Search':
-      //   navigate('/Search');
-      //   break;
-      // case 'LoginHome':
-      //   navigate(`/LoginHome?page=${pageNumber}`);
-      //   break;
+      case 'Search':
+        navigate(`/Search?page=${pageNumber}`);
+        break;
+      case 'SearchProfiles':
+        navigate('/Search/SearchProfiles');
+        break;
+      case 'LoginHome':
+        navigate(`/LoginHome?page=${pageNumber}`);
+        break;
       case 'suggestedProfiles':
         navigate('/suggestedprofiles');
         break;
