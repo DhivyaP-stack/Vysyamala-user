@@ -5,6 +5,7 @@ import { cancelPayment, createOrder, Get_addon_packages, savePlanPackage, verify
 import axios from "axios";
 import { ToastNotification, NotifyError, NotifySuccess } from "../../Components/Toast/ToastNotification";
 import { GPayPopup } from "../PayNowRegistration/GPayPopup";
+import { ConfirmationPopup } from "../PayNowRegistration/ConfirmationPopup";
 
 interface Package {
   package_id: number;
@@ -22,6 +23,7 @@ export const UpgradePayNow: React.FC = () => {
   const [isGPayClicked, setIsGPayClicked] = useState(false);
   const [isOnlinePaymentClicked, setIsOnlinePaymentClicked] = useState(false);
   const navigate = useNavigate();
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
   const fetchData = async () => {
     const response = await axios.post(Get_addon_packages);
@@ -190,27 +192,27 @@ export const UpgradePayNow: React.FC = () => {
       //   totalAmount
       // );
 
-        let response;
-      
-            if (isGPay) {
-              // For GPay: pass gpay_online=1
-              response = await savePlanPackage(
-                String(profile_id),
-                String(id),
-                addonPackageIdsString,
-                totalAmount,
-                1
-              );
-            } else {
-              // For other payments: don't pass gpay_online parameter
-              response = await savePlanPackage(
-                String(profile_id),
-                String(id),
-                addonPackageIdsString,
-                totalAmount
-              );
-            }
-      
+      let response;
+
+      if (isGPay) {
+        // For GPay: pass gpay_online=1
+        response = await savePlanPackage(
+          String(profile_id),
+          String(id),
+          addonPackageIdsString,
+          totalAmount,
+          1
+        );
+      } else {
+        // For other payments: don't pass gpay_online parameter
+        response = await savePlanPackage(
+          String(profile_id),
+          String(id),
+          addonPackageIdsString,
+          totalAmount
+        );
+      }
+
 
       // Log the full response to check its structure
       //console.log("Response from savePlanPackage:", response);
@@ -224,6 +226,11 @@ export const UpgradePayNow: React.FC = () => {
             "Save_plan_package_message",
             response.data_message
           );
+          if (id) {
+            localStorage.setItem("plan_id", id);
+            localStorage.setItem("userplanid", id);
+            sessionStorage.setItem("cur_plan_id", id);
+          }
           sessionStorage.setItem("register_token", response.token);
           localStorage.setItem("user_profile_image", response.profile_image);
           localStorage.setItem("register_token", response.token);
@@ -360,6 +367,22 @@ export const UpgradePayNow: React.FC = () => {
     setShowGPayPopup(true);
   };
 
+  const handleGPaySubmit = () => {
+    // Close GPay popup and show confirmation popup
+    setShowGPayPopup(false);
+    setShowConfirmationPopup(true);
+  };
+
+  const handleConfirmationOkay = async () => {
+    // Close confirmation popup and call API
+    setShowConfirmationPopup(false);
+    try {
+      await Save_plan_package(true);
+      setgpayPaymentSuccessful(true);
+    } catch (error) {
+      console.error("Error saving package:", error);
+    }
+  };
   return (
     <div>
       <div className="container mx-auto mt-10 px-5 max-lg:mt-10 max-md:mt-10">
@@ -447,14 +470,21 @@ export const UpgradePayNow: React.FC = () => {
           setShowGPayPopup(false);
           setIsGPayClicked(false);
         }}
-        onConfirm={async () => {
-          try {
-            await Save_plan_package(true);
-            setgpayPaymentSuccessful(true); // Mark GPay payment as successful
-          } catch (error) {
-            console.error("Error saving package:", error);
-          }
-        }}
+        // onConfirm={async () => {
+        //   try {
+        //     await Save_plan_package(true);
+        //     setgpayPaymentSuccessful(true); // Mark GPay payment as successful
+        //   } catch (error) {
+        //     console.error("Error saving package:", error);
+        //   }
+        // }}
+        onConfirm={handleGPaySubmit}
+      />
+      <ConfirmationPopup
+        isOpen={showConfirmationPopup}
+        onClose={() => setShowConfirmationPopup(false)}
+        onConfirm={handleConfirmationOkay}
+        message="Thank you for choosing Vysyamala for your soulmate search. Our customer support team will connect with you shortly. In the meantime, please share your payment screenshot via WhatsApp at 99944851550."
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import QRCodeImage from "../../assets/images/GPayQRcode.jpeg";
 import { toast } from "react-toastify";
@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 interface GPayPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => Promise<void>;
+  onConfirm: () => void;
 }
 
 export const GPayPopup: React.FC<GPayPopupProps> = ({
@@ -30,15 +30,15 @@ export const GPayPopup: React.FC<GPayPopupProps> = ({
   //   toast.success("Payment paided successfully")
   // };
 
-    const handleSubmit = async () => {
-   
+  const handleSubmit = async () => {
+
     try {
       setShowMessage(true);
-      toast.success("Payment Paided successfully");
+      console.log("Payment Paided successfully");
       await onConfirm(); // Call the save function
     } catch (error) {
       console.error("Confirmation failed:", error);
-    } 
+    }
   };
 
   return (

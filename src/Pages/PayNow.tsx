@@ -5,6 +5,7 @@ import { cancelPayment, createOrder, Get_addon_packages, savePlanPackage, verify
 import axios from "axios";
 import { ToastNotification, NotifyError, NotifySuccess } from "../Components/Toast/ToastNotification";
 import { GPayPopup } from "./PayNowRegistration/GPayPopup";
+import { ConfirmationPopup } from "./PayNowRegistration/ConfirmationPopup";
 
 interface Package {
   package_id: number;
@@ -50,6 +51,8 @@ export const PayNow: React.FC = () => {
   const [isGPayClicked, setIsGPayClicked] = useState(false);
   const [isOnlinePaymentClicked, setIsOnlinePaymentClicked] = useState(false);
   const [showGPayPopup, setShowGPayPopup] = useState(false);
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  
   // useEffect(() => {
   //   if (plan_id) {
   //     localStorage.setItem("userplanid", plan_id);
@@ -371,6 +374,23 @@ export const PayNow: React.FC = () => {
     setShowGPayPopup(true);
   };
 
+  const handleGPaySubmit = () => {
+    // Close GPay popup and show confirmation popup
+    setShowGPayPopup(false);
+    setShowConfirmationPopup(true);
+  };
+
+  const handleConfirmationOkay = async () => {
+    // Close confirmation popup and call API
+    setShowConfirmationPopup(false);
+    try {
+      await Save_plan_package(true);
+      setgpayPaymentSuccessful(true);
+    } catch (error) {
+      console.error("Error saving package:", error);
+    }
+  };
+
 
   return (
     <div className="bg-grayBg">
@@ -456,14 +476,21 @@ export const PayNow: React.FC = () => {
           setShowGPayPopup(false);
           setIsGPayClicked(false);
         }}
-        onConfirm={async () => {
-          try {
-            await Save_plan_package(true);
-            setgpayPaymentSuccessful(true); // Mark GPay payment as successful
-          } catch (error) {
-            console.error("Error saving package:", error);
-          }
-        }}
+        // onConfirm={async () => {
+        //   try {
+        //     await Save_plan_package(true);
+        //     setgpayPaymentSuccessful(true); // Mark GPay payment as successful
+        //   } catch (error) {
+        //     console.error("Error saving package:", error);
+        //   }
+        // }}
+        onConfirm={handleGPaySubmit}
+      />
+      <ConfirmationPopup
+        isOpen={showConfirmationPopup}
+        onClose={() => setShowConfirmationPopup(false)}
+        onConfirm={handleConfirmationOkay}
+        message="Thank you for choosing Vysyamala for your soulmate search. Our customer support team will connect with you shortly. In the meantime, please share your payment screenshot via WhatsApp at 99944851550."
       />
     </div>
   );
