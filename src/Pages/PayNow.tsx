@@ -52,7 +52,10 @@ export const PayNow: React.FC = () => {
   const [isOnlinePaymentClicked, setIsOnlinePaymentClicked] = useState(false);
   const [showGPayPopup, setShowGPayPopup] = useState(false);
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
-  
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupHeading, setPopupHeading] = useState("Thank You");
+  const [isPaymentCancelled, setIsPaymentCancelled] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
   // useEffect(() => {
   //   if (plan_id) {
   //     localStorage.setItem("userplanid", plan_id);
@@ -164,26 +167,17 @@ export const PayNow: React.FC = () => {
     }
   };
 
-  const cancelPaymentFunction = async (
-    profile_id: string,
-    order_id: string
-  ) => {
+
+  const cancelPaymentFunction = async (order_id: string) => {
     try {
-      // Call the cancelPayment API function
       const cancelResponse = await cancelPayment(
         String(profile_id),
         order_id,
         3
-      ); // Pass the profile_id, order_id, and reason (3 in this case, for cancellation)
-
-      // Log the response for debugging
-      //console.log("Cancel Payment Response:", cancelResponse);
-
+      );
       if (cancelResponse.status === "success") {
         NotifySuccess("Payment cancelled successfully!");
-        // Optionally, you can do something after a successful cancellation, e.g., update the UI or navigate to another page
       } else {
-        // Handle the case where cancellation was not successful
         NotifyError("Failed to cancel the payment. Please try again.");
       }
     } catch (error: any) {
@@ -192,21 +186,29 @@ export const PayNow: React.FC = () => {
     }
   };
 
+
+  const handlePaymentCancelled = async (orderId: string) => {
+    try {
+      // First call the cancel payment API
+      await cancelPaymentFunction(orderId);
+
+      // Then show the popup with the message
+      const message = "It looks like your payment was not completed. Please retry, or share your transaction screenshot with us on WhatsApp 99944851550 for assistance.";
+      setPopupMessage(message);
+      setShowConfirmationPopup(true);
+      setIsPaymentCancelled(true);
+      setCurrentOrderId(orderId);
+      setPopupHeading("Payment Incompleted");
+    } catch (error) {
+      console.error("Error handling payment cancellation:", error);
+      NotifyError("Error processing payment cancellation.");
+    }
+  };
+
   const Save_plan_package = async (isGPay?: boolean) => {
     try {
       const addonPackageIdsString = selectedPackageIds.join(",");
       const plan_id = localStorage.getItem("plan_id"); // Get cur_plan_id
-      //console.log("plan_id", plan_id);
-      //console.log("addonPackageIdsString", addonPackageIdsString);
-      //console.log("totalAmount", totalAmount);
-
-      // Call the savePlanPackage function from the common API file
-      // const response = await savePlanPackage(
-      //   String(profile_id),
-      //   String(plan_id),
-      //   addonPackageIdsString,
-      //   totalAmount
-      // );
       let response;
 
       if (isGPay) {
@@ -228,10 +230,6 @@ export const PayNow: React.FC = () => {
         );
       }
 
-
-      // Log the full response to check its structure
-      //console.log("Response from savePlanPackage:", response);
-
       // Check if the response and status exist before accessing them
       if (response && response.status === "success") {
         // Since 'data_message' is directly in the response object, we can check for it directly
@@ -250,7 +248,7 @@ export const PayNow: React.FC = () => {
           // Navigate to the next page
           setTimeout(() => {
             navigate("/MyProfile");
-          }, 2000);
+          }, 5000);
         } else {
           // Handle the case where data_message is missing
           console.error("data_message is missing in the response.");
@@ -284,6 +282,7 @@ export const PayNow: React.FC = () => {
       document.body.appendChild(script);
     });
   };
+
   useEffect(() => {
     // Load Razorpay script when component mounts
     loadRazorpayScript().catch((error) => {
@@ -339,17 +338,17 @@ export const PayNow: React.FC = () => {
       const rzp1 = new (window as any).Razorpay(options);
 
       // Add a payment.failed event listener
+      rzp1.on('modal.close', async function () {
+        console.log("Razorpay modal was closed by the user.");
+        await handlePaymentCancelled(order_id);
+      });
+
+      // Add a payment.failed event listener
       rzp1.on(
         "payment.failed",
         async function (response: { error: { metadata: any; reason: any } }) {
-          //console.log("Payment Failed:", response);
           try {
-            // Call the cancelPayment function using the profile_id and order_id from the failed payment response
-            const cancelResponse = await cancelPaymentFunction(
-              String(profile_id),
-              response.error.metadata.order_id
-            );
-            console.log("cancelResponse", cancelResponse);
+            await handlePaymentCancelled(response.error.metadata.order_id);
           } catch (error: any) {
             console.error(
               "Error during payment cancellation:",
@@ -369,28 +368,27 @@ export const PayNow: React.FC = () => {
     }
   };
 
-  const handleGPay = () => {
+  const handleGPay = async () => {
     setIsGPayClicked(true);
     setShowGPayPopup(true);
   };
 
-  const handleGPaySubmit = () => {
-    // Close GPay popup and show confirmation popup
-    setShowGPayPopup(false);
-    setShowConfirmationPopup(true);
-  };
-
-  const handleConfirmationOkay = async () => {
-    // Close confirmation popup and call API
-    setShowConfirmationPopup(false);
+  const handleGPaySubmit = async () => {
     try {
+      // Call the API to save the package with GPay flag
       await Save_plan_package(true);
       setgpayPaymentSuccessful(true);
+      // Close GPay popup and show confirmation popup
+      setShowGPayPopup(false);
+      setShowConfirmationPopup(true);
+      setPopupHeading("Thank You");
+      setPopupMessage("Thank you for choosing Vysyamala for your soulmate search. Our customer support team will connect with you shortly. In the meantime, please share your payment screenshot via WhatsApp at 99944851550.");
     } catch (error) {
       console.error("Error saving package:", error);
+      NotifyError("Failed to process payment. Please try again.");
+      setShowGPayPopup(false); // Close GPay popup on error
     }
   };
-
 
   return (
     <div className="bg-grayBg">
@@ -488,9 +486,11 @@ export const PayNow: React.FC = () => {
       />
       <ConfirmationPopup
         isOpen={showConfirmationPopup}
-        onClose={() => setShowConfirmationPopup(false)}
-        onConfirm={handleConfirmationOkay}
-        message="Thank you for choosing Vysyamala for your soulmate search. Our customer support team will connect with you shortly. In the meantime, please share your payment screenshot via WhatsApp at 99944851550."
+        onClose={() => {
+          setShowConfirmationPopup(false);
+        }}
+        message={popupMessage}
+        heading={popupHeading}
       />
     </div>
   );

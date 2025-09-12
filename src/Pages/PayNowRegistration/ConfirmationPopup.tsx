@@ -4,15 +4,17 @@ import { IoClose } from "react-icons/io5";
 interface ConfirmationPopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  ///onConfirm: () => void;
   message: string;
+  heading: string;
 }
 
 export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   isOpen,
   onClose,
-  onConfirm,
-  message
+  //onConfirm,
+  message,
+  heading,
 }) => {
   if (!isOpen) return null;
 
@@ -20,7 +22,7 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 md:p-6 rounded-lg w-[90%] max-w-md h-auto relative">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">Thank You</h3>
+          <h3 className="text-xl font-semibold">{heading}</h3>
           <IoClose 
             onClick={onClose} 
             className="text-2xl text-primary cursor-pointer" 
@@ -33,7 +35,7 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
 
         <div className="flex justify-end">
           <button
-            onClick={onConfirm}
+             onClick={onClose} 
             className="bg-gradient text-white font-semibold py-2 px-5 rounded-lg"
           >
             Okay

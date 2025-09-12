@@ -14,7 +14,7 @@ export const GPayPopup: React.FC<GPayPopupProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const [showMessage, setShowMessage] = useState(false);
+  // const [showMessage, setShowMessage] = useState(false);
 
 
   if (!isOpen) return null;
@@ -33,7 +33,7 @@ export const GPayPopup: React.FC<GPayPopupProps> = ({
   const handleSubmit = async () => {
 
     try {
-      setShowMessage(true);
+      // setShowMessage(true);
       console.log("Payment Paided successfully");
       await onConfirm(); // Call the save function
     } catch (error) {
@@ -67,12 +67,12 @@ export const GPayPopup: React.FC<GPayPopupProps> = ({
             Submit
           </button>
 
-          {showMessage && (
+          {/* {showMessage && (
             <p className="text-sm font-semibold mt-2 text-right">
               Send the payment screenshot to the mentioned WhatsApp number.
               We will verify your profile and share it with you.
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </div>
