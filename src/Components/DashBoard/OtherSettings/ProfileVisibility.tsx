@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -65,7 +64,8 @@ export const ProfileVisibility: React.FC = () => {
   const [educationOptions, setEducationOptions] = useState<Option[]>([]);
   const [professionOptions, setProfessionOptions] = useState<Option[]>([]);
   const [incomeOptions, setIncomeOptions] = useState<Option[]>([]);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  // const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [, setFormErrors] = useState<Record<string, string>>({});
   const [fieldOfStudyOptions, setFieldOfStudyOptions] = useState<FieldOfStudy[]>([]);
   const [selectedMinIncome, setSelectedMinIncome] = useState<string>("");
   const [selectedMaxIncome, setSelectedMaxIncome] = useState<string>("");
