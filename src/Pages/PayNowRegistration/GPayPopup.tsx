@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoClose } from "react-icons/io5";
 import QRCodeImage from "../../assets/images/GPayQRcode.jpeg";
-import { toast } from "react-toastify";
 
 interface GPayPopupProps {
   isOpen: boolean;

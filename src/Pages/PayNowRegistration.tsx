@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AddOns } from "../Components/PayNow/AddOns";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { cancelPayment, createOrder, Get_addon_packages, savePlanPackage, verifyPayment } from "../commonapicall";
@@ -54,8 +54,11 @@ export const PayNowRegistration: React.FC = () => {
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupHeading, setPopupHeading] = useState("Thank You");
-  const [isPaymentCancelled, setIsPaymentCancelled] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
+  // const [isPaymentCancelled, setIsPaymentCancelled] = useState(false);
+  // const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
+  const [, setIsPaymentCancelled] = useState(false);
+  const [, setCurrentOrderId] = useState<string | null>(null);
+  const hasShownCancelToast = useRef(false);
   // useEffect(() => {
   //   if (id) {
   //     localStorage.setItem("userplanid", id);
@@ -154,10 +157,11 @@ export const PayNowRegistration: React.FC = () => {
         order_id,
         3
       );
-      if (cancelResponse.status === "success") {
-        NotifySuccess("Payment cancelled successfully!");
+      if (cancelResponse.status === "success" && hasShownCancelToast.current) {
+        NotifyError("Payment cancelled successfully!");
+        hasShownCancelToast.current = true; // prevent duplicate toast
       } else {
-        NotifyError("Failed to cancel the payment. Please try again.");
+        console.log("Failed to cancel the payment. Please try again.");
       }
     } catch (error: any) {
       console.error("Error during payment cancellation:", error.message);

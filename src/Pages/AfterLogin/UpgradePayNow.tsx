@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AddOns } from "../../Components/PayNow/AddOns";
 import { Link, useNavigate } from "react-router-dom";
 import { cancelPayment, createOrder, Get_addon_packages, savePlanPackage, verifyPayment } from "../../commonapicall";
@@ -25,8 +25,10 @@ export const UpgradePayNow: React.FC = () => {
   const navigate = useNavigate();
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  const [isPaymentCancelled, setIsPaymentCancelled] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
+  // const [isPaymentCancelled, setIsPaymentCancelled] = useState(false);
+  // const [currentOrderId, setCurrentOrderId] = useState<string | null>(null);
+   const [, setIsPaymentCancelled] = useState(false);
+  const [, setCurrentOrderId] = useState<string | null>(null);
   const [popupHeading, setPopupHeading] = useState("Thank You");
 
   const fetchData = async () => {
@@ -62,6 +64,7 @@ export const UpgradePayNow: React.FC = () => {
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
   const [selectedPackageIds, setSelectedPackageIds] = useState<number[]>([]);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState<boolean>(false);
+  const hasShownCancelToast = useRef(false);
 
   const handleAddOnChange = (rate: number, checked: boolean, packageId: number) => {
     if (checked) {
@@ -152,33 +155,7 @@ export const UpgradePayNow: React.FC = () => {
     }
   };
 
-  // const cancelPaymentFunction = async (
-  //   profile_id: string,
-  //   order_id: string
-  // ) => {
-  //   try {
-  //     // Call the cancelPayment API function
-  //     const cancelResponse = await cancelPayment(
-  //       String(profile_id),
-  //       order_id,
-  //       3
-  //     ); // Pass the profile_id, order_id, and reason (3 in this case, for cancellation)
 
-  //     // Log the response for debugging
-  //     //console.log("Cancel Payment Response:", cancelResponse);
-
-  //     if (cancelResponse.status === "success") {
-  //       NotifySuccess("Payment cancelled successfully!");
-  //       // Optionally, you can do something after a successful cancellation, e.g., update the UI or navigate to another page
-  //     } else {
-  //       // Handle the case where cancellation was not successful
-  //       NotifyError("Failed to cancel the payment. Please try again.");
-  //     }
-  //   } catch (error: any) {
-  //     console.error("Error during payment cancellation:", error.message);
-  //     NotifyError("Error during payment cancellation. Please try again.");
-  //   }
-  // };
 
   const Save_plan_package = async (isGPay?: boolean) => {
     try {
@@ -257,10 +234,11 @@ export const UpgradePayNow: React.FC = () => {
         order_id,
         3
       );
-      if (cancelResponse.status === "success") {
-        NotifySuccess("Payment cancelled successfully!");
+     if (cancelResponse.status === "success" && hasShownCancelToast.current) {
+      NotifyError("Payment cancelled successfully!");
+      hasShownCancelToast.current = true; // prevent duplicate toast
       } else {
-        NotifyError("Failed to cancel the payment. Please try again.");
+          console.log("Failed to cancel the payment. Please try again.");
       }
     } catch (error: any) {
       console.error("Error during payment cancellation:", error.message);
