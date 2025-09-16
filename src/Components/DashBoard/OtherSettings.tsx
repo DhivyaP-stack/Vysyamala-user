@@ -144,7 +144,8 @@ export const OtherSettings: React.FC<OtherSettingsProps> = ({
                   >
                     <BiSolidUserCircle className="text-[22px] mr-2 max-sm:text-base " />
                     Profile Visibility
-                  </li>)}
+                  </li>
+                )}
               </ul>
             </div>
 

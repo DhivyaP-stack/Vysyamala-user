@@ -785,7 +785,7 @@ export const ProfileVisibility: React.FC = () => {
                 <input
                   type="radio"
                   value="Both"
-                  {...register("rahuKetuDhosam")}
+                  {...register("chevvaiDhosam")}
                   className="mr-2"
                 />
                 Both
