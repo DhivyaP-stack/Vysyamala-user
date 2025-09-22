@@ -135,7 +135,7 @@ export const ViewedProfiles: React.FC<ViewedProfilesProps> = () => {
                 ) : (
                     <div className="bg-white rounded-xl shadow-profileCardShadow px-5 py-5">
                         <p className="text-ashSecondary font-semibold">Today</p>
-                        <ViewedProfilesCard pageNumber={pageNumber} dataPerPage={dataPerPage} sortBy={sortBy} />
+                        <ViewedProfilesCard pageNumber={pageNumber} dataPerPage={dataPerPage} sortBy={sortBy}  />
                         <Pagination
                             pageNumber={pageNumber}
                             setPageNumber={setPageNumber}

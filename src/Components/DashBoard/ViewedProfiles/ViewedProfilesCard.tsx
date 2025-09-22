@@ -53,7 +53,7 @@ type ViewedProfilesCardProps = {
   sortBy: string;
 };
 
-export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumber,sortBy }) => {
+export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumber, sortBy }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [bookmarkedProfiles, setBookmarkedProfiles] = useState<string[]>(() => {
     const savedBookmarks = sessionStorage.getItem("bookmarkedProfiles");
@@ -63,16 +63,18 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
   const navigate = useNavigate();
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const location = useLocation();
+  const [loading, setLoading] = useState<boolean>(true); // 👈 add local loading
 
   useEffect(() => {
     // Fetch the data from the API
+     setLoading(true); // start loading before API
     apiClient
       .post<ApiResponse>(
         "/auth/My_viewed_profiles/",
         {
           profile_id: loginuser_profileId, // Send profile_id in the request body
           page_number: pageNumber,
-          sort_by: sortBy || "", 
+          sort_by: sortBy || "",
         }
       )
       .then((response) => {
@@ -83,8 +85,10 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
       })
       .catch((error) => {
         console.error("Error fetching profiles:", error);
-      });
-  }, [loginuser_profileId, pageNumber,sortBy]); // Include profile_id in the dependency array if it can change
+      }).finally(() => {
+        setLoading(false); // stop loading after API call
+      });;
+  }, [loginuser_profileId, pageNumber, sortBy]); // Include profile_id in the dependency array if it can change
 
   const handleBookmarkToggle = async (profileId: string) => {
     if (bookmarkedProfiles.includes(profileId)) {
@@ -201,6 +205,16 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
       : "https://vysyamat.blob.core.windows.net/vysyamala/default_groom.png";
 
   //console.log(profiles, "profilesssssss");
+    if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[200px]">
+        <Hearts height="80" width="80" color="#FF6666" visible={true} />
+        <p className="mt-2 text-sm text-primary">Loading profiles...</p>
+      </div>
+    );
+  }
+
+
   return (
     <div className="">
       <ToastContainer />
