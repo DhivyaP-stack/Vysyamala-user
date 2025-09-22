@@ -50,9 +50,10 @@ interface ApiResponse {
 type ViewedProfilesCardProps = {
   pageNumber: number;
   dataPerPage: number;
+  sortBy: string;
 };
 
-export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumber }) => {
+export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumber,sortBy }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [bookmarkedProfiles, setBookmarkedProfiles] = useState<string[]>(() => {
     const savedBookmarks = sessionStorage.getItem("bookmarkedProfiles");
@@ -71,6 +72,7 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
         {
           profile_id: loginuser_profileId, // Send profile_id in the request body
           page_number: pageNumber,
+          sort_by: sortBy || "", 
         }
       )
       .then((response) => {
@@ -78,12 +80,11 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
           setProfiles(response.data.data.profiles);
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
-
       })
       .catch((error) => {
         console.error("Error fetching profiles:", error);
       });
-  }, [loginuser_profileId, pageNumber]); // Include profile_id in the dependency array if it can change
+  }, [loginuser_profileId, pageNumber,sortBy]); // Include profile_id in the dependency array if it can change
 
   const handleBookmarkToggle = async (profileId: string) => {
     if (bookmarkedProfiles.includes(profileId)) {
