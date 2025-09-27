@@ -199,7 +199,7 @@ export const ListCard: React.FC<ListCardProps> = ({ profile }) => {
 
       <div className="w-full flex justify-between items-center max-md:flex-col">
         <div className="flex justify-between md:items-center space-x-5 max-md:flex-col max-md:w-full">
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           {/* {/ Profile Image /} */}
           <div className="relative max-md:w-full">
             {profile.photo_protection === 1 ? (

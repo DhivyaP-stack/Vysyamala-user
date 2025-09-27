@@ -175,7 +175,7 @@ export const GridCard: React.FC<GridCardProps> = ({ profile }) => {
       )}
 
       <div className="mb-3">
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         {profile.photo_protection === 1 ? (
           <div className="relative">
             <img

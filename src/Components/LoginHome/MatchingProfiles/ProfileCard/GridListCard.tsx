@@ -202,7 +202,7 @@ export const GridListCard: React.FC<GridListCardProps> = ({ profile }) => {
             )}
           </div> */}
 
-        <ToastContainer />
+        {/* <ToastContainer /> */}
 
         <div className="relative w-[180px] h-full flex-shrink-[0] max-sm:w-full">
           {profile.photo_protection === 1 ? (
@@ -314,9 +314,7 @@ export const GridListCard: React.FC<GridListCardProps> = ({ profile }) => {
           </div>
         </div>
       </div>
-
       {/* <ToastNotification/> */}
-
     </div>
     // </Link>
   );
