@@ -14,7 +14,7 @@ import { ProfileContext, Profile } from "../../../../ProfileContext"; // Adjust 
 import "react-toastify"
 import { IoMdLock } from "react-icons/io";
 import apiClient from "../../../../API";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Hearts } from "react-loader-spinner";
 // import { toast } from "react-toastify";
