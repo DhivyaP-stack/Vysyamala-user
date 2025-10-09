@@ -46,10 +46,9 @@ interface WishlistProfile {
 interface WishlistCardProps {
   page: number;
   perPage: number;
-  sortBy: string;
 }
 
-export const WishlistCard: React.FC<WishlistCardProps> = ({ page, sortBy}) => {
+export const WishlistCard: React.FC<WishlistCardProps> = ({ page }) => {
   const navigate = useNavigate();
   const context = useContext(ProfileContext);
   if (!context) {
@@ -68,7 +67,6 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ page, sortBy}) => {
         {
           profile_id: profileId,
           page_number: page,
-           sort_by: sortBy || "",
           // Include the profile_id in the request body
         }
       );
@@ -102,7 +100,7 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ page, sortBy}) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page, sortBy]);
+  }, [page]);
 
   useEffect(() => {
     // Retrieve profile_id from sessionStorage
@@ -113,7 +111,7 @@ export const WishlistCard: React.FC<WishlistCardProps> = ({ page, sortBy}) => {
     } else {
       console.error("Profile ID not found in sessionStorage.");
     }
-  }, [page,sortBy]);
+  }, [page]);
 
   // const handleProfileClick = (profileId: string) => {
   //   navigate(`/ProfileDetails?id=${profileId}&page=2`);

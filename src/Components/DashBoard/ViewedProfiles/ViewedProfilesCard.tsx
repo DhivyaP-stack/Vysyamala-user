@@ -87,7 +87,7 @@ export const ViewedProfilesCard: React.FC<ViewedProfilesCardProps> = ({ pageNumb
         console.error("Error fetching profiles:", error);
       }).finally(() => {
         setLoading(false); // stop loading after API call
-      });
+      });;
   }, [loginuser_profileId, pageNumber, sortBy]); // Include profile_id in the dependency array if it can change
 
   const handleBookmarkToggle = async (profileId: string) => {

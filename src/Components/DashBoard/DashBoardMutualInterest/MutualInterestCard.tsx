@@ -39,8 +39,6 @@ interface MutualInterestCardProps {
   setTotalRecords: Dispatch<SetStateAction<number>>;
   setViewCount: Dispatch<SetStateAction<number>>;
   setDataPerPage: Dispatch<SetStateAction<number>>;
-  pageNumber: number;   // 👈 add this
-  sortBy: string;
 }
 
 export const MutualInterestCard: React.FC<MutualInterestCardProps> = ({
@@ -48,29 +46,23 @@ export const MutualInterestCard: React.FC<MutualInterestCardProps> = ({
   setViewCount,
   setCount,
   setTotalRecords,
-  pageNumber,
-  sortBy,
 }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [bookmarkedProfiles, setBookmarkedProfiles] = useState<string[]>(() => {
     const savedBookmarks = sessionStorage.getItem("bookmarkedProfiles");
     return savedBookmarks ? JSON.parse(savedBookmarks) : [];
   });
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [, setError] = useState<string | null>(null);
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
 
-
   useEffect(() => {
     const fetchProfiles = async () => {
-      setLoading(true);
       try {
         const response = await apiClient.post(
           "/auth/Get_mutual_intrests/",
           {
             profile_id: loginuser_profileId,
-            page_number: pageNumber, // 👈 send page
-            sort_by: sortBy,        // 👈 send sort
           }
         );
         setCount(response.data.mut_int_count);
@@ -95,7 +87,7 @@ export const MutualInterestCard: React.FC<MutualInterestCardProps> = ({
     };
 
     fetchProfiles();
-  }, [loginuser_profileId, setCount, setTotalRecords, setDataPerPage, setViewCount, pageNumber, sortBy]);
+  }, [loginuser_profileId, setCount, setTotalRecords, setDataPerPage, setViewCount]);
 
   const handleBookmarkToggle = async (profileId: string) => {
     if (bookmarkedProfiles.includes(profileId)) {
@@ -156,15 +148,6 @@ export const MutualInterestCard: React.FC<MutualInterestCardProps> = ({
       console.error("Error removing bookmark:", error);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[200px]">
-        <Hearts height="80" width="80" color="#FF6666" visible={true} />
-        <p className="mt-2 text-sm text-primary">Loading profiles...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="">

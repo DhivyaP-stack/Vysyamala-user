@@ -55,16 +55,14 @@ interface ApiResponse {
 type VisitorsProfilesCardProps = {
   pageNumber: number;
   dataPerPage: number;
-  sortBy: string;
 };
 
-export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber, sortBy }) => {
+export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber }) => {
   const [profiles, setProfiles] = useState<Profile[]>([]); // Store multiple profiles
   const [isBookmarked, setIsBookmarked] = useState<{ [key: string]: boolean }>({});
   const loginuser_profileId = localStorage.getItem("loginuser_profile_id");
   const navigate = useNavigate();
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation();
 
   // Function to handle the bookmark toggle
@@ -78,14 +76,12 @@ export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber
   // Fetch profile data when the component mounts
   useEffect(() => {
     const fetchProfileData = async () => {
-      setLoading(true);
       try {
         const response = await apiClient.post<ApiResponse>(
           "/auth/My_profile_visit/",
           {
             profile_id: loginuser_profileId,
-            page_number: pageNumber,
-            sort_by: sortBy,
+              page_number: pageNumber,
           }
         );
 
@@ -93,15 +89,14 @@ export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber
         if (response.data.Status === 1 && response.data.data.profiles.length > 0) {
           setProfiles(response.data.data.profiles); // Store all profiles
         }
+        
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
-      finally {
-        setLoading(false); // 👈 always stop loading here
-      }
     };
+
     fetchProfileData();
-  }, [loginuser_profileId, pageNumber, sortBy]);
+  }, [loginuser_profileId]);
 
   // const handleProfileClick = (profileId: string) => {
   //   navigate(`/ProfileDetails?id=${profileId}&page=5`);
@@ -135,7 +130,7 @@ export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber
       }
 
       // Navigate after validation
-      navigate(`/ProfileDetails?id=${profileId}&page=5`, {
+      navigate(`/ProfileDetails?id=${profileId}&page=5`,{
         state: {
           from: 'myVisitors',
           pageNumber: pageNumber // Pass the current page number
@@ -159,19 +154,11 @@ export const MyVisitorsCard: React.FC<VisitorsProfilesCardProps> = ({ pageNumber
 
   const gender = localStorage.getItem("gender");
 
-  const defaultImgUrl =
-    gender?.toLowerCase() === "male"
-      ? "https://vysyamat.blob.core.windows.net/vysyamala/default_bride.png"
-      : "https://vysyamat.blob.core.windows.net/vysyamala/default_groom.png";
+const defaultImgUrl =
+  gender?.toLowerCase() === "male"
+    ? "https://vysyamat.blob.core.windows.net/vysyamala/default_bride.png"
+    : "https://vysyamat.blob.core.windows.net/vysyamala/default_groom.png";
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[200px]">
-        <Hearts height="80" width="80" color="#FF6666" visible={true} />
-        <p className="mt-2 text-sm text-primary">Loading profiles...</p>
-      </div>
-    );
-  }
 
   return (
     <div>
