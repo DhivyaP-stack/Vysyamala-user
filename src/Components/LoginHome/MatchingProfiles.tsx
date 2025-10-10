@@ -24,7 +24,7 @@ import axios from "axios";
 // import { FiXCircle } from "react-icons/fi";
 //import { LuFilterX } from "react-icons/lu";
 // import { number } from "zod";
-import Pagination from "../Pagination";
+//import Pagination from "../Pagination";
 // import Spinner from "../Spinner";
 //import { ToastNotification } from "../Toast/ToastNotification";
 import { IoMdArrowDropdown } from "react-icons/io";
