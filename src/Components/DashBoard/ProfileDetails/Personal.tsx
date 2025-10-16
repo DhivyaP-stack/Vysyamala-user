@@ -17,7 +17,7 @@ interface PersonalDetails {
   personal_profile_marital_status_name: string;
   personal_blood_group: string;
   personal_about_self: string;
-  personal_about_self_original:string;
+  personal_about_self_original: string;
   personal_profile_complexion_name: string;
   personal_hobbies: string;
   personal_pysically_changed: string;
@@ -106,7 +106,7 @@ export const Personal = () => {
       const [hours, minutes] = time.split(":");
       setHour(hours);
       setMinute(minutes);
-      setPeriod(period as "AM" | "PM");
+      setPeriod(period && (period === "AM" || period === "PM") ? period : "AM");
     }
   }, [personalDetails]);
 
@@ -258,20 +258,20 @@ export const Personal = () => {
     }));
   };
 
- const handleEditClick = () => {
-  if (isEditing) {
-    setFormData({});
-  } else {
-    if (personalDetails) {
-      // 📝 FIX: Use personal_about_self_original here to set the form data.
-      setFormData({
-        ...personalDetails,
-        personal_about_self: personalDetails.personal_about_self_original,
-      });
+  const handleEditClick = () => {
+    if (isEditing) {
+      setFormData({});
+    } else {
+      if (personalDetails) {
+        // 📝 FIX: Use personal_about_self_original here to set the form data.
+        setFormData({
+          ...personalDetails,
+          personal_about_self: personalDetails.personal_about_self_original,
+        });
+      }
     }
-  }
-  setIsEditing(!isEditing);
-};
+    setIsEditing(!isEditing);
+  };
 
   const navigate = useNavigate(); // Initialize navigate
   const handleEditClick1 = () => {
@@ -333,6 +333,7 @@ export const Personal = () => {
       }
     }
   }, [formData.personal_profile_dob]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -624,7 +625,7 @@ export const Personal = () => {
               </label>
 
               <label className="block mb-2 text-[20px] text-ash font-semibold max-xl:text-[18px] max-lg:text-[16px] max-lg:font-medium">
-                Time of Birth:
+                Time of Birth :
                 <div className="flex items-center space-x-2">
                   <div className="relative w-full">
                     <select
@@ -634,7 +635,7 @@ export const Personal = () => {
                       
                         `}
                     >
-                      <option value="" disabled>Select hour</option>
+                      <option value="">Select hour</option>
                       {Array.from({ length: 12 }, (_, i) => i + 1).map((h) => (
                         <option key={h} value={h.toString().padStart(2, "0")}>
                           {h}
@@ -651,7 +652,7 @@ export const Personal = () => {
                        
                         `}
                     >
-                      <option value="" disabled>Select minute</option>
+                      <option value="">Select minute</option>
                       {Array.from({ length: 60 }, (_, i) => i).map((m) => (
                         <option key={m} value={m.toString().padStart(2, "0")}>
                           {m.toString().padStart(2, "0")}
@@ -975,7 +976,7 @@ export const Personal = () => {
                 </div>
               </label>
 
-              <label className="block mb-2 text-[20px] text-ash font-semibold max-xl:text-[18px] max-lg:text-[16px] max-lg:font-medium">
+              {/* <label className="block mb-2 text-[20px] text-ash font-semibold max-xl:text-[18px] max-lg:text-[16px] max-lg:font-medium">
                 Profile For:
                 <select
                   value={selectedProfileHolder}
@@ -995,7 +996,7 @@ export const Personal = () => {
                     </option>
                   ))}
                 </select>
-              </label>
+              </label> */}
 
               <label className="block mb-2 text-[20px] text-ash font-semibold max-xl:text-[18px] max-lg:text-[16px] max-lg:font-medium">
                 Registered Mobile:
