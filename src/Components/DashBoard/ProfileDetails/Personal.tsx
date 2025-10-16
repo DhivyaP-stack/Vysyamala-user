@@ -338,7 +338,16 @@ export const Personal = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const timeOfBirth = `${hour}:${minute} ${period}`;
+    // Initialize timeOfBirth as an empty string.
+    let timeOfBirth = "";
+
+    // Check if both 'hour' and 'minute' have values.
+    if (hour && minute) {
+      // If they do, construct the time string using the selected hour, minute, and period.
+      // The 'period' state defaults to "AM" if not explicitly changed.
+      const finalPeriod = period || "AM";
+      timeOfBirth = `${hour}:${minute} ${finalPeriod}`;
+    }
 
     // Validate time
     // if (!hour || !minute || !period) {
