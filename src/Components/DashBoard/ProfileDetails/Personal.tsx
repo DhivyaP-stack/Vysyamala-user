@@ -248,15 +248,15 @@ export const Personal = () => {
     }));
   };
 
-  const handleProfileHolderChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSelectedProfileHolder(e.target.value);
-    setFormData((prevState) => ({
-      ...prevState,
-      personal_profile_for_name: e.target.value,
-    }));
-  };
+  // const handleProfileHolderChange = (
+  //   e: React.ChangeEvent<HTMLSelectElement>
+  // ) => {
+  //   setSelectedProfileHolder(e.target.value);
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     personal_profile_for_name: e.target.value,
+  //   }));
+  // };
 
   const handleEditClick = () => {
     if (isEditing) {
