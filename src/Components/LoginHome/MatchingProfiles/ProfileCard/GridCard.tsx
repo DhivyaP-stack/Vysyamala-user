@@ -108,6 +108,7 @@ export const GridCard: React.FC<GridCardProps> = ({ profile }) => {
       const searchParams = new URLSearchParams(window.location.search);
       const pageFromUrl = searchParams.get('page');
       const currentPage = pageFromUrl ? parseInt(pageFromUrl) : 1;
+      
       const searchState = {
         searchProfileId: sessionStorage.getItem('searchProfileId') || '',
         profession: sessionStorage.getItem('profession') || '',

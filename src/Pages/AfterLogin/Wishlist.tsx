@@ -110,45 +110,44 @@ export const Wishlist = () => {
                 ({TotalRecords?.toString()})
               </span>
             </h4>
-            </div>
-            <div className="flex items-center space-x-2">
-              {sortBy === "profile_id" ? (
-                <MdToggleOff
-                  onClick={toggleSort}
-                  className="text-5xl text-gray-400 cursor-pointer hover:text-primary transition"
-                />
-              ) : (
-                <MdToggleOn
-                  onClick={toggleSort}
-                  className="text-5xl text-primary cursor-pointer hover:text-primary-dark transition"
-                />
-              )}
-              <span className="text-lg font-medium text-primary whitespace-nowrap">
-                {sortBy === "profile_id" ? "Sort by Profile ID" : "Sort by Date"}
-              </span>
-            </div>
           </div>
-          {/* WishlistCard */}
-          <div>
-            <WishlistCard perPage={perPage} page={page} sortBy={sortBy}/>
-            {/* <WishlistCard />
-                    <WishlistCard /> */}
-
-            <Pagination
-              pageNumber={page}
-              setPageNumber={setPage}
-              totalRecords={TotalRecords}
-              dataPerPage={perPage}
-              toptalPages={totalPage}
-            />
-
-
+          <div className="flex items-center space-x-2">
+            {sortBy === "profile_id" ? (
+              <MdToggleOff
+                onClick={toggleSort}
+                className="text-5xl text-gray-400 cursor-pointer hover:text-primary transition"
+              />
+            ) : (
+              <MdToggleOn
+                onClick={toggleSort}
+                className="text-5xl text-primary cursor-pointer hover:text-primary-dark transition"
+              />
+            )}
+            <span className="text-lg font-medium text-primary whitespace-nowrap">
+              {sortBy === "profile_id" ? "Sort by Profile ID" : "Sort by Date"}
+            </span>
           </div>
         </div>
+        {/* WishlistCard */}
+        <div>
+          <WishlistCard perPage={perPage} page={page} sortBy={sortBy} />
+          {/* <WishlistCard />
+                    <WishlistCard /> */}
 
-        {/* Suggested Profiles */}
-
-        <SuggestedProfiles />
+          <Pagination
+            pageNumber={page}
+            setPageNumber={setPage}
+            totalRecords={TotalRecords}
+            dataPerPage={perPage}
+            toptalPages={totalPage}
+            sortBy={sortBy}
+          />
+        </div>
       </div>
-      );
+
+      {/* Suggested Profiles */}
+
+      <SuggestedProfiles />
+    </div>
+  );
 };

@@ -210,7 +210,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   const location = useLocation();
   const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
 
-  const handleProfileClick = async (profileId: string) => {
+  const handleProfileClick = async (profileId: string, sortBy:string) => {
     if (activeProfileId) return;
     setActiveProfileId(profileId); // set the card that's loading
 
@@ -247,10 +247,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       const currentPage = pageFromUrl ? parseInt(pageFromUrl) : 1;
 
       // Navigate with state containing page number and source
-      navigate(`/ProfileDetails?id=${profileId}&page=1`, {
+      navigate(`/ProfileDetails?id=${profileId}&page=1&sortBy=${sortBy}`, {
         state: {
           from: 'MutualInterest',
-          pageNumber: currentPage
+          pageNumber: currentPage,
+          sortBy: sortBy
         }
       });
     } catch (error) {

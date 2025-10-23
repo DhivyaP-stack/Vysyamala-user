@@ -32,6 +32,7 @@ export const ProfileDetailsSettingsView: React.FC<ProfileDetailsSettingsViewProp
     const queryParams = new URLSearchParams(location.search);
     const pageid = queryParams.get("page") || "";
     const currentProfileId = queryParams.get("id") || "";
+    const sortBy = queryParams.get("sortBy") || "datetime";
 
     const renderSection = () => {
         switch (activeSection) {
@@ -82,6 +83,7 @@ export const ProfileDetailsSettingsView: React.FC<ProfileDetailsSettingsViewProp
 
                 const response = await axios.post<ProfileListResponse>(apiEndpoint, {
                     profile_id: loginuser_profileId,
+                    sort_by: sortBy
                 });
 
                 let data: {
@@ -140,7 +142,7 @@ export const ProfileDetailsSettingsView: React.FC<ProfileDetailsSettingsViewProp
             console.log("within")
             const newIndex = currentIndex - 1;
             setCurrentIndex(newIndex);
-            navigate(`/ProfileDetails?id=${profileIds[newIndex]}&page=${pageid}`);
+            navigate(`/ProfileDetails?id=${profileIds[newIndex]}&page=${pageid}&sortBy=${sortBy}`);
             setTimeout(() => {
                 window.scrollTo(0, 0);  // Move scroll to the top after navigation
             }, 2000);
@@ -152,7 +154,7 @@ export const ProfileDetailsSettingsView: React.FC<ProfileDetailsSettingsViewProp
             const newIndex = currentIndex + 1;
             //console.log("Navigating to next profile, New Index:", newIndex); // Debugging log
             setCurrentIndex(newIndex);
-            navigate(`/ProfileDetails?id=${profileIds[newIndex]}&page=${pageid}`);
+            navigate(`/ProfileDetails?id=${profileIds[newIndex]}&page=${pageid}&sortBy=${sortBy}`);
             setTimeout(() => {
                 window.scrollTo(0, 0);  // Move scroll to the top after navigation
             }, 2000);
