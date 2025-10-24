@@ -138,7 +138,7 @@ const PhotoRequest: React.FC<DashBoardMyProfileProps> = ({
             totalRecords={totalRecords}
             dataPerPage={dataPerPage}
             toptalPages={toptalPages}
-            sortBy={sortBy}
+            //sortBy={sortBy}
           />
         </div>
 

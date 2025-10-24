@@ -7,7 +7,7 @@ interface PaginationProps {
   totalRecords: number;
   setPageNumber: (value: number | ((prev: number) => number)) => void;
   pageNumber: number;
-  sortBy:string;
+  
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -16,7 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalRecords = 0,
   setPageNumber,
   pageNumber,
-  sortBy,
+  // sortBy,
 }) => {
   // const [inputValue, setInputValue] = useState(pageNumber);
   const [inputValue, setInputValue] = useState<string | number>("");
@@ -24,7 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
   // Sync the input field with the current page number
   useEffect(() => {
     setInputValue(pageNumber);
-  }, [pageNumber, sortBy ]);
+  }, [pageNumber ]);
 
   if (!toptalPages || !dataPerPage || !totalRecords || !pageNumber) {
     return <div></div>;

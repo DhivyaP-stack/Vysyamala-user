@@ -10,7 +10,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { MdToggleOff, MdToggleOn } from "react-icons/md";
 
 export const Wishlist = () => {
-  const [sortBy, setSortBy] = useState<string>("datetime");
+  // const [sortBy, setSortBy] = useState<string>("datetime");
   useEffect(() => {
     sessionStorage.removeItem("searchvalue");
   }, []);
@@ -29,19 +29,26 @@ export const Wishlist = () => {
     return pageFromUrl ? parseInt(pageFromUrl) : 1;
   };
 
+  const getInitialSortBy = () => {
+    const searchParams = new URLSearchParams(location.search);
+    const sortFromUrl = searchParams.get('sortBy');
+    return sortFromUrl || 'datetime';
+  }
+
   const { TotalRecords, totalPage } = context;
   // const [page, setPage] = useState<number>(1);
   const [page, setPage] = useState<number>(getInitialPageNumber());
+  const [sortBy, setSortBy] = useState<string>(getInitialSortBy());
   const perPage = 10;
 
   useEffect(() => {
     // Update URL when page changes
     const searchParams = new URLSearchParams(location.search);
     searchParams.set('page', page.toString());
-
+    searchParams.set('sortBy', sortBy);
     // Replace current URL without causing navigation
     navigate(`?${searchParams.toString()}`, { replace: true });
-  }, [page, location.search, navigate]);
+  }, [page, sortBy, location.search, navigate]);
 
   const toggleSort = () => {
     setSortBy((prev) =>
@@ -49,8 +56,6 @@ export const Wishlist = () => {
     );
     setPage(1); // reset to first page on sort change
   };
-
-
 
   const {
     setFromAge,
@@ -140,13 +145,12 @@ export const Wishlist = () => {
             totalRecords={TotalRecords}
             dataPerPage={perPage}
             toptalPages={totalPage}
-            sortBy={sortBy}
+          //sortBy={sortBy}
           />
         </div>
       </div>
 
       {/* Suggested Profiles */}
-
       <SuggestedProfiles />
     </div>
   );

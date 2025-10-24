@@ -181,7 +181,7 @@ export const MyVisitors: React.FC<MyVisitorsProps> = ({ }) => {
               totalRecords={totalRecords}
               dataPerPage={dataPerPage}
               toptalPages={totalPages}
-              sortBy={sortBy}
+              //sortBy={sortBy}
             />
           </div>
         )}

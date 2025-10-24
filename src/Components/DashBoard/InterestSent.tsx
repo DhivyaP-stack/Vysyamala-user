@@ -157,7 +157,8 @@ export const InterestSent: React.FC<InterestSentProps> = ({
           totalRecords={totalRecords}
           dataPerPage={dataPerPage}
           toptalPages={toptalPages}
-          sortBy={sortBy} />
+        //sortBy={sortBy} 
+        />
       </div>
     </div>
   );

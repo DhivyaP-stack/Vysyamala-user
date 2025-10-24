@@ -124,7 +124,8 @@ export const VysAssist: React.FC<VysassistNotesPopupProps> = ({ }) => {
                         totalRecords={totalRecords}
                         dataPerPage={dataPerPage}
                         toptalPages={toptalPages}
-                        sortBy={sortBy} />
+                        //sortBy={sortBy} 
+                        />
                 </div>
             </div>
             <SuggestedProfiles />
