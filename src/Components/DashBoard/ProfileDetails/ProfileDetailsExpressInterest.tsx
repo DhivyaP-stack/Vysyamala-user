@@ -743,18 +743,30 @@ export const ProfileDetailsExpressInterest: React.FC<
   // Get the navigation state with default values
   const navigationState = location.state || {};
   //const { from = '', pageNumber = 1 } = navigationState;
-  const { from = '', pageNumber = 1, searchState = {},  sortBy = 'datetime' } = navigationState;
+  const { from = '', pageNumber = 1, searchState = {}, sortBy = 'datetime'  } = navigationState;
 
   const handleBackClick = () => {
 
-    // Special case: MatchingProfiles → restore search state
+    const queryParams = new URLSearchParams(location.search);
+    const orderBy = queryParams.get('order_by') || '1';
+
     if (from === 'MatchingProfiles' && searchState) {
+      // Restore all search state to sessionStorage
       Object.entries(searchState).forEach(([key, value]) => {
         sessionStorage.setItem(key, value as string);
       });
 
-      navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}`, {
-        state: { from, pageNumber, searchState }
+      // Navigate back with order_by preserved (but hidden in display)
+      navigate(`/LoginHome/MatchingProfiles?page=${pageNumber}&orderBy=${orderBy}`, {
+        state: {
+          from,
+          pageNumber,
+          searchState: {
+            ...searchState,
+            sortOrder: orderBy // Ensure sortOrder is preserved
+          }
+        },
+        replace: true
       });
       return;
     }
@@ -764,8 +776,16 @@ export const ProfileDetailsExpressInterest: React.FC<
         sessionStorage.setItem(key, value as string);
       });
 
-      navigate(`/LoginHome?page=${pageNumber}`, {
-        state: { from, pageNumber, searchState }
+      navigate(`/LoginHome?page=${pageNumber}&orderBy=${orderBy}`, {
+        state: {
+          from,
+          pageNumber,
+          searchState: {
+            ...searchState,
+            sortOrder: orderBy
+          }
+        },
+        replace: true
       });
       return;
     }
