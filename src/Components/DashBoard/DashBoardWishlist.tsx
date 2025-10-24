@@ -36,7 +36,6 @@ export const DashBoardWishlist: React.FC<DashBoardWishlistProps> = ({ }) => {
   // const [page, setPage] = useState<number>(1);
   const [page, setPage] = useState<number>(getInitialPageNumber());
   const [sortBy] = useState<string>(getInitialSortBy());
-
   const perPage = 10;
 
   const {
