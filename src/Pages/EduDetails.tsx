@@ -1338,8 +1338,8 @@ const EduDetails: React.FC<EduDetailsProps> = () => {
                       <div>
                         <InputField
                           id="district"
-                          value={districtValue}
-                          onChange={(e) => setDistrictValue(e.target.value)}
+                          value={selectedDistrict}
+                          onChange={(e) => setSelectedDistrict(e.target.value)}
                           label="District"
                         />
                       </div>
@@ -1379,7 +1379,7 @@ const EduDetails: React.FC<EduDetailsProps> = () => {
                             // onChange={(e) => setWorkCity(e.target.value)}
                             onChange={handleCityChange}
                           >
-                            <option value="" selected disabled>
+                            <option value="" selected>
                               Select Work City
                             </option>
                             {workCityList.map((option: any) => (

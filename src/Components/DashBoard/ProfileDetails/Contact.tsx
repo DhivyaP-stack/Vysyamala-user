@@ -205,15 +205,34 @@ export const Contact = () => {
       }));
     }
   };
-  // /********** MODIFIED CODE END **********/
 
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
+    const selectedName = event.target.options[event.target.selectedIndex].text;
+
+    // Set the new state
     setSelectedStateId(selectedId);
+
+    // --- NEW: Clear all child data ---
+    setSelectedDistrictId("");
+    setSelectedCityId("");
+    setDistricts([]); // Clear district options
+    setCities([]); // Clear city options
+    setIsCityDropdown(true); // Reset city to dropdown
+
+    // Update form data: set new state name, clear all child names
     setFormData((prevState) => ({
       ...prevState,
-      personal_prof_stat_name:
-        event.target.options[event.target.selectedIndex].text,
+      personal_prof_stat_name: selectedName,
+      personal_prof_district_name: "", // Clear district name
+      personal_prof_city_name: "", // Clear city name
+    }));
+
+    // Clear any potential errors related to children
+    setErrors((prev) => ({
+      ...prev,
+      selectedDistrictId: "", // Clear any potential stale errors
+      selectedCityId: "", // Clear any potential stale errors
     }));
   };
 
@@ -221,11 +240,27 @@ export const Contact = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedId = event.target.value;
+    const selectedName = event.target.options[event.target.selectedIndex].text;
+
+    // Set the new district
     setSelectedDistrictId(selectedId);
+
+    // --- NEW: Clear child data ---
+    setSelectedCityId("");
+    setCities([]);
+    setIsCityDropdown(true);
+
+    // Update form data
     setFormData((prevState) => ({
       ...prevState,
-      personal_prof_district_name:
-        event.target.options[event.target.selectedIndex].text,
+      personal_prof_district_name: selectedName,
+      personal_prof_city_name: "", // Clear city name
+    }));
+
+    // Clear any potential errors related to city
+    setErrors((prev) => ({
+      ...prev,
+      selectedCityId: "", // Clear any potential stale errors
     }));
   };
 
@@ -569,13 +604,24 @@ export const Contact = () => {
                         label=""
                         value={formData.personal_prof_district_name || ""}
                         onChange={(e) => {
+                          const newDistrictName = e.target.value;
+
+                          // --- NEW: Update form data and clear city ---
                           setFormData((prev) => ({
                             ...prev,
-                            personal_prof_district_name: e.target.value,
+                            personal_prof_district_name: newDistrictName,
+                            personal_prof_city_name: "", // Clear city name
                           }));
+
+                          // --- NEW: Clear child state ---
+                          setSelectedCityId("");
+                          setCities([]);
+                          setIsCityDropdown(true);
+
                           setErrors((prev) => ({
                             ...prev,
                             selectedDistrictId: "",
+                            selectedCityId: "",
                           })); // Clear error on change
                         }}
                       />
