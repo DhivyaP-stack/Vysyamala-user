@@ -161,21 +161,41 @@ export const Contact = () => {
   }, [selectedStateId, refreshData]);
 
   useEffect(() => {
-    if (!selectedDistrictId) return;
+    // Clear cities and reset to dropdown if no district is selected
+    if (!selectedDistrictId) {
+      setCities([]);
+      setIsCityDropdown(true); // Default to dropdown
+      return;
+    }
 
     const fetchCities = async () => {
       try {
         const response = await apiClient.post("/auth/Get_City/", {
           district_id: selectedDistrictId.toString(),
         });
-        setCities(Object.values(response.data) as City[]);
+
+        const cityData = Object.values(response.data) as City[];
+        setCities(cityData);
+
+        // --- THIS IS THE NEW LOGIC ---
+        if (cityData.length > 0) {
+          // If we have cities, show the dropdown
+          setIsCityDropdown(true);
+        } else {
+          // If API returns no cities, force the text input
+          setIsCityDropdown(false);
+        }
+        // --- END OF NEW LOGIC ---
+
       } catch (error) {
         console.error("Error fetching cities:", error);
+        setCities([]);
+        setIsCityDropdown(false); // Also force text input on error
       }
     };
 
     fetchCities();
-  }, [selectedDistrictId, refreshData]);
+  }, [selectedDistrictId, refreshData]); // Dependencies are correct
 
   // /********** MODIFIED CODE START **********/
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -404,7 +424,8 @@ export const Contact = () => {
         {
           profile_id: loginuser_profileId,
           Profile_address: formData.personal_prof_addr,
-          Profile_city: selectedCityId || formData.personal_prof_city_name,
+          //Profile_city: selectedCityId || formData.personal_prof_city_name,
+          Profile_city: formData.personal_prof_city_name,
           Profile_district:
             selectedDistrictId || formData.personal_prof_district_name,
           Profile_state: selectedStateId || formData.personal_prof_stat_name,
