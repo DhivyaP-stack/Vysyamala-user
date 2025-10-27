@@ -141,7 +141,7 @@ const EduDetails: React.FC<EduDetailsProps> = () => {
   const currencyOptions = currencyCodes.codes();
   const [, setSelectedDegree] = useState("");
   const [customDegree, setCustomDegree] = useState("");
-  const [districtValue, setDistrictValue] = useState(""); // Add state for the district value
+  //const [districtValue, setDistrictValue] = useState(""); // Add state for the district value
   const [customWorkCity, setCustomWorkCity] = useState("");
   const [selectedDegrees, setSelectedDegrees] = useState<number[]>([]);
   const [countryOptions, setCountryOptions] = useState<CountryOption[]>([]);
