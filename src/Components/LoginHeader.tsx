@@ -850,7 +850,6 @@ export const LoginHeader: React.FC = () => {
                     className={`active-nav text-[16px] text-primary rounded-md transition-all cursor-pointer !font-normal relative`}
                   >
                     Notification
-
                   </li>
 
 
