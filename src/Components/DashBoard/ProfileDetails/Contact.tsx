@@ -446,22 +446,22 @@ export const Contact = () => {
   };
 
   // Add this helper function
-  const findCityByName = (cityName: string, cityList: City[]): City | undefined => {
-    if (!cityName || !cityList.length) return undefined;
+  // const findCityByName = (cityName: string, cityList: City[]): City | undefined => {
+  //   if (!cityName || !cityList.length) return undefined;
 
-    // Try exact match first
-    let city = cityList.find(c => c.city_name.toLowerCase() === cityName.toLowerCase());
+  //   // Try exact match first
+  //   let city = cityList.find(c => c.city_name.toLowerCase() === cityName.toLowerCase());
 
-    // If not found, try partial match
-    if (!city) {
-      city = cityList.find(c =>
-        cityName.toLowerCase().includes(c.city_name.toLowerCase()) ||
-        c.city_name.toLowerCase().includes(cityName.toLowerCase())
-      );
-    }
+  //   // If not found, try partial match
+  //   if (!city) {
+  //     city = cityList.find(c =>
+  //       cityName.toLowerCase().includes(c.city_name.toLowerCase()) ||
+  //       c.city_name.toLowerCase().includes(cityName.toLowerCase())
+  //     );
+  //   }
 
-    return city;
-  }; 
+  //   return city;
+  // }; 
   
   const navigate = useNavigate();
   const handleEditClick1 = () => {
